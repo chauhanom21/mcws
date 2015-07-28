@@ -1,0 +1,86 @@
+<div ng-init = "loadAlDataForChartSplCreate();">
+	<ul class="breadcrumb">
+		<li><a href="#{{$location.path()}}">Home {{$location.path()}}
+		</a></li>
+
+	</ul>
+</div>
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2>
+				<i class="icon-file"></i> Save  ChartType-Specialization
+			</h2>
+		</div>
+		<!-- Content Start -->
+		
+		<form name="addChartSpecialization" class="form-horizontal" ng-submit="saveChartSpecialization();">
+			<fieldset>
+			<!-- Form Name -->
+			<legend>Chart-Specialization configuration form </legend>
+			
+			<div class="control-group">
+			  <label class="control-label" for="chartTypes">Available Chart-Specializations </label>
+			  <div class="controls">
+			    <select class="input-large" ng-model="chartSpecSelected" 
+				ng-options ="chartSpec.id as chartSpec.name for chartSpec in allChartSpeDetail">
+<!-- 			      <option value="">-- Add New ChartType --</option> -->
+				</select>
+			  </div>
+			</div>
+			<hr/>
+			<br/>
+			<h3> Create New Chart-Specialization</h3>
+			<br/>
+			<br/>
+			<div class="control-group">
+			  <label class="control-label" for="chartTypes">Select Chart Type </label>
+			  <div class="controls">
+			    <select class="input-large" ng-options ="chart as chart.chartType  for chart in allChartTypes" ng-model="chartSelected" ng-change="populateChartType();">
+	 			      <option value="">-- Add New ChartType --</option>
+				</select>
+			  </div>
+			</div>
+			
+			<!-- Text input-->
+			<div class="control-group">
+			  <label class="control-label" for="chartType"> Enter the Chart Type </label>
+			  <div class="controls">
+			    <input id="chartType" name="chartType" type="text" placeholder="chartType" class="input-large" ng-disabled="chartTypeDisabled" ng-model="chartType" ng-required="true" />
+			  </div>
+			</div>
+			<!-- Text input-->
+			<div class="control-group">
+			  <label class="control-label" for="specialization"> Enter the Specialization </label>
+			  <div class="controls">
+			    <input id="specialization" name="specialization" type="text" placeholder="specialization" class="input-large" ng-model="specialization" ng-required="true" />
+			  </div>
+			</div>
+														
+			<!-- Button -->
+			<div class="control-group">
+				<div class="inline">
+					 <label class="control-label" for="singlebutton"></label>
+					 <div class="controls">
+					 <button  name="singlebutton" class="btn btn-primary">Save</button>
+					 </div>
+				</div>
+				
+			</div>
+			</fieldset>
+		</form>
+		<!-- Content End -->
+	</div>
+</div>
+<style>
+/* unvisited link */
+.ad_title {
+  display: block;
+  border: 0;
+  color: blue;
+  font-size: 1.4em;
+   text-shadow: none;
+}
+
+
+</style>

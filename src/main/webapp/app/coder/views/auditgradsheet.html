@@ -1,0 +1,174 @@
+<div ng-init="populateGradingSheet()">
+	<ul class="breadcrumb">
+        <li>
+			<a href="#{{$location.path()}}">Home {{$location.path()}} </a> 
+		</li>
+    </ul>
+</div>
+<div class="row-fluid sortable">
+  <div class="box span12">
+  	<div class="box-header well" data-original-title>
+		<h2 style="text-shadow:none;"><i class="icon-file"></i> Audit Chart Details </h2>
+	</div>
+	<div class="box-content">
+		<form class="form-horizontal" ng-submit="submit()">
+			<div class="inline">
+				<label class="control-label">Client Name</label> 
+				<div class="controls">
+					<input class="input-large" type="text" name="clientName" value="{{gradSheetData.client}}" disabled>
+				</div>
+			</div>			
+			<div class="inline">
+				<label class="control-label">Chart Type</label>
+				<div class="controls">
+				  <input class="input-large" type="text" name="chartType" value="{{gradSheetData.chartType}}" disabled>
+				</div>
+			</div>
+			<div class="inline">
+				<label class="control-label">Chart Specialization</label>
+				<div class="controls">
+				  <input class="input-large" type="text" name="specialization" value="{{gradSheetData.specilization}}" disabled>
+				</div>
+			</div>
+			<div class="inline-bottom">
+				<label class="control-label">Account/MR Number </label>
+				<div class="controls">
+				  <input class="input-large" type="text" name="account" value="{{gradSheetData.accountNumber}} {{gradSheetData.mrNumber}}" disabled>
+				</div>
+			</div>						
+			<div class="clearBoth">
+				<table class="table altrowstable">
+				  <thead> 
+				    <th scope="row">Grading Sheet:</th>
+				  </thead>
+				</table>
+				<div class="inline" style="margin-bottom: 14px;">
+				 	<label class="checkbox">
+            			<input type="checkbox" vname="drg" id="drg" ng-model="gradSheetData.drg" ng-change="displayGradingSheet(gradSheetData.drg)"> DRG
+        			</label>
+				</div>
+				
+				<table id="grading-table" class="table alttable clearBoth">
+				<thead>
+				  <tr>
+					<th>Column Name</th>
+					<th>Weightage</th>
+					<th>No of Errors</th>
+					<th>Accuracy Calculation</th>
+				  </tr>
+				</thead> 	
+				<tbody>
+				  <tr>
+					<td>PDX</td>
+					<td><input class="input-small" id="pdxWeight" name="pdxWeight" type="text" value="{{weightage.pdx}}" disabled /></td>
+					<td><input class="input-small" id="pdxError" name="pdxError" type="text" valid-number ng-model="gradSheet.pdxError"  ng-keyup="calAccuracy(weightage.pdx, gradSheet.pdxError, 'pdx')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="pdxAccuracy" name="pdxAccuracy" type="text" valid-number ng-model="gradSheet.pdxAccuracy" ng-required="showRequired" readonly /></td>
+				  </tr>
+				  <tr>
+					<td>SDX</td>
+					<td><input class="input-small" id="sdxWeight" name="sdxWeight" type="text" value="{{weightage.sdx}}" disabled /></td>
+					<td><input class="input-small" id="sdxError" name="sdxError" type="text" valid-number ng-model="gradSheet.sdxError" ng-keyup="calAccuracy(weightage.sdx, gradSheet.sdxError, 'sdx')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="sdxAccuracy" name="sdxAccuracy" type="text" valid-number ng-model="gradSheet.sdxAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				  <tr>
+					<td>MCC/CC</td>
+					<td><input class="input-small" id="mccWeight" name="mccWeight" type="text"  value="{{weightage.mcccc}}" disabled /></td>
+					<td><input class="input-small" id="mccError" name="mccError" type="text" valid-number ng-model="gradSheet.mccError" ng-keyup="calAccuracy(weightage.mcccc, gradSheet.mccError, 'mcc')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="mccAccuracy" name="mccAccuracy" type="text" valid-number ng-model="gradSheet.mccAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				 <tr>
+					<td>Vol-3-PPX</td>
+					<td><input class="input-small" id="vol3ppxWeight" name="vol3ppxWeight" type="text" value="{{weightage.vol3ppx}}" disabled /></td>
+					<td><input class="input-small" id="vol3ppxError" name="vol3ppxError" type="text" valid-number ng-model="gradSheet.vol3ppxError" ng-keyup="calAccuracy(weightage.vol3ppx, gradSheet.vol3ppxError, 'vol3ppx')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="vol3ppxAccuracy" name="vol3ppxAccuracy" type="text" valid-number ng-model="gradSheet.vol3ppxAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				  <tr>
+					<td>Vol-3-SPX</td>
+					<td><input class="input-small" id="vol3spxWeight" name="vol3spxWeight" type="text" value="{{weightage.vol3spx}}" disabled /></td>
+					<td><input class="input-small" id="vol3spxError" name="vol3spxError" type="text" valid-number ng-model="gradSheet.vol3spxError" ng-keyup="calAccuracy(weightage.vol3spx, gradSheet.vol3spxError, 'vol3spx')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="vol3spxAccuracy" name="vol3spxAccuracy" type="text" valid-number ng-model="gradSheet.vol3spxAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				  <tr>
+					<td>Dispo</td>
+					<td><input class="input-small" id="dispoWeight" name="dispoWeight" type="text" value="{{weightage.dispo}}" disabled /></td>
+					<td><input class="input-small" id="dispoError" name="dispoError" type="text" valid-number ng-model="gradSheet.dispoError" ng-keyup="calAccuracy(weightage.dispo, gradSheet.dispoError, 'dispo')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="dispoAccuracy" name="dispoAccuracy" type="text" valid-number ng-model="gradSheet.dispoAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				  <tr>
+					<td>Wrong Physician</td>
+					<td><input class="input-small" id="wrongPhysicianWeight" name="wrongPhysicianWeight" type="text" value="{{weightage.wrongphysician}}" disabled /></td>
+					<td><input class="input-small" id="wrongPhysicianError" name="wrongPhysicianError" type="text" 
+						valid-number ng-model="gradSheet.wrongPhysicianError" ng-keyup="calAccuracy(weightage.wrongphysician, gradSheet.wrongPhysicianError, 'wrongPhysician')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="wrongPhysicianAccuracy" name="wrongPhysicianAccuracy" type="text" valid-number ng-model="gradSheet.wrongPhysicianAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				  <tr>
+					<td>CPT-PCPT</td>
+					<td><input class="input-small" id="pcptWeight" name="pcptWeight" type="text" value="{{weightage.cptpcpt}}" disabled /></td>
+					<td><input class="input-small" id="pcptError" name="pcptError" type="text" valid-number ng-model="gradSheet.pcptError" ng-keyup="calAccuracy(weightage.cptpcpt, gradSheet.pcptError, 'pcpt')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="pcptAccuracy" name="pcptAccuracy" type="text" valid-number ng-model="gradSheet.pcptAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				  <tr>
+					<td>CPT-SCPT</td>
+					<td><input class="input-small" id="scptWeight" name="scptWeight" type="text" value="{{weightage.cptscpt}}" disabled /></td>
+					<td><input class="input-small" id="scptError" name="scptError" type="text" valid-number ng-model="gradSheet.scptError" ng-keyup="calAccuracy(weightage.cptscpt, gradSheet.scptError, 'scpt')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="scptAccuracy" name="scptAccuracy" type="text" valid-number ng-model="gradSheet.scptAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				  <tr>
+					<td>Revenue Code</td>
+					<td><input class="input-small" id="revCodeWeight" name="revCodeWeight" type="text" value="{{weightage.revenuecode}}" disabled /></td>
+					<td><input class="input-small" id="revCodeError" name="revCodeError" type="text" valid-number ng-model="gradSheet.revCodeError" ng-keyup="calAccuracy(weightage.revenuecode, gradSheet.revCodeError, 'revCode')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="revCodeAccuracy" name="revCodeAccuracy" type="text" valid-number ng-model="gradSheet.revCodeAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				  <tr>
+					<td>Modifier</td>
+					<td><input class="input-small" id="modifierWeight" name="modifierWeight" type="text" value="{{weightage.modifier}}" disabled /></td>
+					<td><input class="input-small" id="modifierError" name="modifierError" type="text" valid-number ng-model="gradSheet.modifierError" ng-keyup="calAccuracy(weightage.modifier, gradSheet.modifierError, 'modifier')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="modifierAccuracy" name="modifierAccuracy" type="text" valid-number ng-model="gradSheet.modifierAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				  <tr>
+					<td>E/M Level</td>
+					<td><input class="input-small" id="emlevelWeight" name="emlevelWeight" type="text" value="{{weightage.emlevel}}" disabled /></td>
+					<td><input class="input-small" id="emlevelError" name="emlevelError" type="text" valid-number ng-model="gradSheet.emlevelError" ng-keyup="calAccuracy(weightage.emlevel, gradSheet.emlevelError, 'emlevel')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="emlevelAccuracy" name="emlevelAccuracy" type="text" valid-number ng-model="gradSheet.emlevelAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				  <tr>
+					<td>POA</td>
+					<td><input class="input-small" id="poaWeight" name="poaWeight" type="text" value="{{weightage.poa}}" disabled /></td>
+					<td><input class="input-small" id="poaError" name="poaError" type="text" valid-number ng-model="gradSheet.poaError" ng-keyup="calAccuracy(weightage.poa, gradSheet.poaError, 'poa')" ng-required="showRequired" /></td>
+					<td><input class="input-small" id="poaAccuracy" name="poaAccuracy" type="text" valid-number ng-model="gradSheet.poaAccuracy" ng-required="showRequired" readonly /></td>
+				  </tr>
+				  <tr>
+					<td>ADX</td>
+					<td><input class="input-small" id="adxWeight" name="adxWeight" type="text" value="{{weightage.adx}}" disabled /></td>
+					<td><input class="input-small" id="adxError" name="adxError" type="text" valid-number ng-model="gradSheet.adxError" ng-keyup="calAccuracy(weightage.adx, gradSheet.adxError, 'adx')"  ng-required="showRequired" /></td>
+					<td><input class="input-small" id="adxAccuracy" name="adxAccuracy" type="text" valid-number ng-model="gradSheet.adxAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				  <tr class="ui-accuracy-message">
+					<td></td>
+					<td></td>
+					<td style="font-size:16px;">Accuracy</td>
+					<td><input class="input-small" id="accuracy" name="accuracy" type="text" valid-number ng-model="totalAccuracy" ng-required="showRequired" readonly/></td>
+				  </tr>
+				  </tbody>
+				</table>
+			</div>
+			<div id="accuracyError" class="ui-error-message">
+      			<p>Accuracy should not be less than zero, Change the grading sheet data to get currect Accuracy!</p>
+   			</div>
+			<div id="accuracy-div" class="inline">
+				<div class="inline-bottom">
+					<label class="control-label">Accuracy</label>
+					<div class="controls">
+			  			<input class="input-small" id="accuracy" name="accuracy" type="text" valid-number value="0.0" ng-required="showRequired" readonly/>
+					</div>
+				</div>						
+			</div>
+				
+			<div class="form-actions clearBoth">
+				<button type="submit" class="btn btn-primary" style="margin-left:339px;">Submit</button>
+				<button class="btn btn-danger" type="reset">Reset</button>
+			</div>
+		</form>
+	</div>
+  </div>
+</div>

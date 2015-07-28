@@ -1,0 +1,178 @@
+<div class="row-fluid sortable" ng-init="fetchCoderWorkItemByDate();">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-file"></i> All Tasks</h2>
+			<div class="box-icon entrySelect">
+				<span>View</span>
+				<select ng-model="itemsPerPage"  ng-change = "groupToPages()" style="width:55px;">
+					<option value="5"> 5 </option>
+					<option value="10"> 10 </option>
+					<option value="15"> 15 </option>
+				</select>
+				<span>items</span>	
+			</div>
+		</div>
+		<div class="box-content">	
+			<form class="form-search">
+				<div class='input-group inline' style="position: relative; top: 0px;">
+					<div class="input-append leftAlign">
+						<select class="select-style-box"  ng-options = "c.name as c.name for c in clients" 
+						ng-model = "queryClient"  ng-change = "search()">
+							<option value="">-- Filter By Client --</option>
+						</select>
+					</div>
+					<div class="input-append leftAlign">
+						<select class="select-style-box"  ng-options = "cs.text as cs.text for cs in chartTypes" 
+						ng-model = "queryChartType"  ng-change = "search()" style="width: 175px;">
+							<option value="">-- Filter By chartType --</option>
+						</select>
+					</div>
+					
+					<div class="input-append leftAlign">
+						<select class="select-style-box"  ng-options = "cs.text as cs.text for cs in states" 
+						ng-model = "queryStatusType"  ng-change = "search()" style="width: 175px;">
+							<option value="">-- Filter By Status --</option>
+						</select>
+					</div>
+					<button id="user-search-reset-button" ng-click="queryClient=''; queryChartType=''; 
+					queryStatusType=''; search()" ng-disabled="!queryClient && !queryChartType && !queryStatusType" 
+					type="submit" class="btn leftAlign">Reset</button>
+				</div>
+				
+				<div class="clearBoth">
+					<div class="inline" style="margin-right:10px; margin-top:18px;">
+						<p> From: </p>
+					</div>
+					<div class='input-group inline date' id='fromdatetime' style="width: 205px; height: 30px;">
+						<input type="text" name="input" class="form-control" ng-model="fromDate" />
+						<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+					</div>
+					
+					<div class="inline" style="margin-right:10px; margin-left:10px; margin-top:18px;">
+						<p> To: </p>
+					</div>
+					<div class='input-group date' id='todatetime' style="width: 205px; height: 30px;">
+						<input type="text" name="input" class="form-control" ng-model="toDate" />
+						<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+					</div>
+					<button id="user-search-reset-button"  ng-click="fetchCoderWorkItemByDate()"  
+						type="submit" class="btn btn-success btn-position">Fetch Task Details
+					</button>
+					<div id="dateError" class="ui-error-message">
+					    From Date should be less than To Date!
+					</div>
+				</div>
+			</form>
+			
+			<table id="monitor-task-table" class="table table-striped table-bordered bootstrap-datatable datatable">
+				<thead>
+			    <tr>
+					<th id="acc-id">
+						<a ng-click="predicate = 'account'; sort_by('account')">
+						Account /MR No <span ng-show="predicate == 'account'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a></th>
+					<th id="client">
+						<a ng-click="predicate = 'client'; sort_by('client')">
+						Client <span ng-show="predicate == 'client'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a></th>
+					<th id="chart-type">
+						<a ng-click="predicate = 'chartType'; sort_by('chartType')">
+						Chart Type <span ng-show="predicate == 'chartType'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a></th>
+					 <th id="chart-spl">
+						<a ng-click="predicate = 'coder'; sort_by('coder')">
+						Spec <span ng-show="predicate == 'coder'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+						</span></a>
+					</th>
+					<th id="tat">
+						<a ng-click="predicate = 'tat'; sort_by('tat')">
+						TAT <span ng-show="predicate == 'tat'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a></th>
+					<th id="los">
+						<a ng-click="predicate = 'los'; sort_by('los')">
+						LOS <span ng-show="predicate == 'los'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a></th>
+					<th id="em">
+						<a ng-click="predicate = 'em'; sort_by('em')">
+						EM <span ng-show="predicate == 'em'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a></th>
+					<th id="qareviewed">
+						<a ng-click="predicate = 'qareviewed'; sort_by('qareviewed')">
+						QA Reviewed<span ng-show="predicate == 'qareviewed'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+						</span></a>
+					</th>
+					<th id="userStatus">
+						<a ng-click="predicate = 'userStatus'; sort_by('userStatus')">
+						User Status <span ng-show="predicate == 'userStatus'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+						</span></a>
+					</th>
+					<th id="status">
+						<a ng-click="predicate = 'status'; sort_by('status')">
+						Current Status <span ng-show="predicate == 'status'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+						</span></a>
+					</th>
+					<th id="receivedDate">
+						<a ng-click="predicate = 'receivedDate'; sort_by('receivedDate')">
+						Received Date <span ng-show="predicate == 'receivedDate'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span> </span></a>
+					</th>
+					<th id="updateDate">
+						<a ng-click="predicate = 'updateDate'; sort_by('updateDate')">
+						Last Updated Date <span ng-show="predicate == 'updateDate'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span> </span></a>
+					</th>
+					<th id="totalTimeTaken">
+						<a ng-click="predicate = 'totalTimeTaken'; sort_by('totalTimeTaken')">
+						Total Time( HH:MM ) <span ng-show="predicate == 'totalTimeTaken'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span> </span></a>
+					</th>
+					<th id="status">
+						<a>
+						Action <span ng-show="predicate == 'status'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+						</span></a>
+					</th>							
+			  	</tr>
+				</thead>
+
+				<tbody>
+				<tr ng-repeat="task in  pagedItems[currentPage] | orderBy:predicate:reverse">
+					<td class="center"> {{task.accountNumber}}  {{task.mrNumber}}</td>
+					<td class="center"> {{task.client}} </td>
+					<td class="center"> {{task.chartType}} </td>
+					<td class="center"> {{task.specilization}} </td>
+					<td class="center"> {{task.tat}} </td>
+					<td class="center"> {{task.los}} </td>	
+					<td class="center"> {{task.em}} </td>				
+					<td class="center"> {{task.qaReviewed}} </td>
+					<td class="center"> {{task.userStatus}} </td>		
+					<td class="center"> {{task.status}} </td>
+					<td class="center">{{ task.receivedDate }}</td>
+					<td class="center">{{ task.updateDate }}</td>
+					<td class="center">{{ task.totalTimeTaken }}</td>
+					<td class="center"> 
+					  <button type="submit" class="btn btn-primary" ng-disabled="{{task.codingHistory.length}} < 1" 
+					  	ng-click="viewUserLevelCodDiffHistory(task.codingHistory, task.chartType, task.status);"> Diff </button></td>		
+				</tr> 
+			
+				</tbody>
+			</table>
+
+			<div id="pagination-mu-div-id" class="pagination pagination-right">
+				<pagination total-items="bigTotalItems" page="bigCurrentPage" max-size="maxSize" class="pagination-sm" items-per-page="itemsPerPage" boundary-links="true" rotate="false" num-pages="numPages" ng-click="setPage()"></pagination>
+				 <!-- pre>Page: {{bigCurrentPage}} / {{numPages}}</pre-->
+			</div>
+
+		</div>
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->
+<!-- row-fluid sortable -->
+<script type="text/javascript">
+var dt = new Date();
+dt.setDate(dt.getDate() - 30);
+
+$(function () {
+	$('#datetimepicker').datetimepicker({
+		  pickTime: false,
+		  minDate: dt,  
+		  maxDate: new Date(), 
+		  showToday: true
+	});
+});
+</script>

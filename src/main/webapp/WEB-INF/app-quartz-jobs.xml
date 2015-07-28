@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	
+	<!--  For setting  all LocalQA and Coder's completedLoad to 0.0 -->
+	<bean id="resetCompletedLoadTask" class="com.eclat.mcws.quartz.ResetCompletedLoadTask" />
+ 
+	<!-- Spring Quartz -->
+	<bean name="resetCompletedLoadJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+	
+		<property name="jobClass" value="com.eclat.mcws.quartz.ResetCompletedLoadJob" />
+		<property name="jobDataAsMap">
+		  <map>
+			<entry key="resetCompletedLoadTask" value-ref="resetCompletedLoadTask" />
+		  </map>
+		</property>
+		
+	</bean>
+ 
+ 
+	<!-- Simple Trigger, run every 5 seconds -->
+	<!-- <bean id="simpleTrigger" 
+                class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+ 
+		<property name="jobDetail" ref="resetCompletedLoadJob" />
+		<property name="repeatInterval" value="5000" />
+		<property name="startDelay" value="1000" />
+ 
+	</bean> -->
+ 
+	<!-- Cron Trigger, run  @ every day  first second i.e 00:00:01 -->
+	<bean id="istCronTrigger" 
+                class="org.springframework.scheduling.quartz.CronTriggerBean">
+                
+		<property name="jobDetail" ref="resetCompletedLoadJob" />
+		<!-- "0 30 18 * * ?"   : for UTC/GMT to equalize in IST --> 
+		<property name="cronExpression" value="0 30 18 * * ?" />
+		<!-- <property name="cronExpression" value="0 30 14 * * ?" />  -->
+		<!-- "0 30 14 * * ?"   : for EST to equalize in IST --> 
+		<!-- <property name="cronExpression" value="0 30 14 * * ?" /> -->
+	</bean>
+ 	
+ 	<!--  For setting RemoteQA completedLoad to 0.0 -->
+ 	<bean id="resetRemoteQACompletedLoadTask" class="com.eclat.mcws.quartz.ResetRemoteQACompletedLoadTask" />
+ 
+	<!-- Spring Quartz -->
+	<bean name="resetRemoteQACompletedLoadJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+	
+		<property name="jobClass" value="com.eclat.mcws.quartz.ResetRemoteQACompletedLoadJob" />
+		<property name="jobDataAsMap">
+		  <map>
+			<entry key="resetRemoteQACompletedLoadTask" value-ref="resetRemoteQACompletedLoadTask" />
+		  </map>
+		</property>
+		
+	</bean>
+  
+	<!-- Cron Trigger, run  @ every day  first second i.e 00:00:01 -->
+	<bean id="estCronTrigger" 
+                class="org.springframework.scheduling.quartz.CronTriggerBean">
+                
+		<property name="jobDetail" ref="resetRemoteQACompletedLoadJob" />
+		<!--   for EST/EDT to 00:00 -->
+		 <!-- "0 30 05 * * ?"   : for UTC/GMT to equalize in EST/US --> 
+		<property name="cronExpression" value="0 30 05 * * ?" />
+	</bean>
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="jobDetails">
+			<list>
+				<ref bean="resetCompletedLoadJob" />
+				<ref bean="resetRemoteQACompletedLoadJob" />
+			</list>
+		</property>
+		<property name="triggers">
+			<list>
+				<ref bean="estCronTrigger" />
+				<ref bean="istCronTrigger" />
+			</list>
+		</property>
+	</bean>
+	
+
+</beans>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html ng-app = "coderModule">
+<head>
+<meta charset="utf-8">
+<title>MCWS</title>
+	<link rel="stylesheet" href="app/css/bootstrap-cerulean.css" >
+	<link rel="stylesheet" href="app/css/bootstrap-datetimepicker.css" />
+	<link rel="stylesheet" href="app/css/bootstrap-responsive.css" />
+	<link rel="stylesheet" href="app/css/theme-app.css" >
+	<link rel="stylesheet" href="app/css/xeditable.css" />
+	<link rel="stylesheet" href="app/css/styles.css">	
+	<link rel="stylesheet" href="app/css/datetime-styles.css"> 
+	<link rel="stylesheet" href="app/lib/ngDialog/css/ngDialog.css">
+	<link rel="stylesheet" href="app/lib/ngDialog/css/ngDialog-theme-default.css">
+	<link rel="stylesheet" href="app/lib/ngDialog/css/ngDialog-theme-plain.css">
+	<link rel="stylesheet" href="app/lib/jquery/PluginLoadingOverlay/waitMe.css">
+	<link rel="stylesheet" href="app/lib/timer/timer_style.css">
+	<!-- Libraries -->
+	<script src="app/lib/jquery/jquery-1.10.2.js"></script>
+	<script src="app/lib/jquery/jquery-ui-1.10.3.js"></script>
+	
+	<script src="app/lib/angular/angular-1.2.3.js"></script>
+	<script src="app/lib/angular/restangular.js"></script>
+	<script src="app/lib/angular/angular-resource-1.2.3.js"></script>
+	<script src="app/lib/angular/angular-cookies-1.2.3.js"></script>
+	<script src="app/lib/angular/angular-route-1.2.3.js"></script>
+	<script src="app/lib/angular/ng-table.src.js"></script>
+	
+	<script src="app/lib/underscore/underscore.js"></script>
+	
+	<script src="app/lib/xeditable/xeditable.min.js"></script>
+	
+	<script src="app/lib/bootstrap/bootstrap.min.js"></script>
+	<script src="app/lib/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+	<script src="app/lib/bootstrap/moment.js"></script>
+	<script src="app/lib/bootstrap/bootstrap-datepicker.js"></script>
+	<script src="app/lib/bootstrap/bootstrap-datetimepicker.js"></script>
+	<script src="app/lib/date/xdate.js"></script>
+	
+	<script src="app/lib/ngDialog/js/ngDialog.min.js"></script>
+	<!-- Timer JS-->
+	<script src="app/lib/timer/timer.js"></script>
+	<!-- Plugin-Loading-Progress-Overlay-->
+	<script src="app/lib/jquery/PluginLoadingOverlay/waitMe.js"></script>
+	
+	<script src="app/coder/services/CoderApp.js"></script>
+	<script src="app/coder/controllers/AuditGradingController.js"></script>
+	<script src="app/coder/controllers/CoderController.js"></script>
+	<script src="app/coder/controllers/TaskDetailsController.js"></script>
+	<script src="app/coder/controllers/CoderAllTasksController.js"></script>
+	
+	<!--  Controllers -->
+	<script src="app/supervisor/controllers/SupervisorController.js"></script>
+	<script src="app/admin/controllers/FileUploadController.js"></script>
+	<script src="app/admin/controllers/AdminFileController.js"></script>
+	<script src="app/search/controllers/SearchController.js"></script>
+	
+	<!--  Services -->
+	<script src="app/common/services/Services.js"></script>
+	
+</head>
+
+<body>
+<div id="container"></div>
+	<!-- topbar starts -->
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a href=""> <img alt="MCWS Logo" src="app/img/eclatlogo_opt.jpg"/></a>
+
+            <!-- user dropdown starts -->
+            <div class="btn-group pull-right" ng-if="user.name">
+            	<a  class="brand" href=""> 
+            		<span class="icon-bar">v1.0.1</span>
+            	</a>
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="">
+                    <i class="icon-user"></i><span id="name" class="hidden-phone"> {{user.name}} </span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href="j_spring_security_logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- topbar ends -->
+<div class="container-fluid">
+    <div class="row-fluid">
+		<!-- left menu starts -->
+        <div class="span2 main-menu-span" ng-if="user.name">
+            <div class="well nav-collapse sidebar-nav">
+                <ul class="nav nav-tabs nav-stacked main-menu">
+                    <li class="nav-header hidden-tablet">Main</li>
+                    <li><a id="home" href="#home"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
+					<li><a id="search" href="#search"><span class="hidden-tablet"> Search</span></a></li>
+					<li><a id="mytasks" href="#mytasks"><span class="hidden-tablet"> My Task</span></a></li>
+					<li><a id="alltasks" href="#alltasks"><span class="hidden-tablet"> All Tasks</span></a></li>
+					<li><a id="notes" href="#notes"><span class="hidden-tablet"> Notes </span></a></li>
+				</ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+        <!-- left menu ends -->
+		
+        <noscript>
+            <div class="alert alert-block span10">
+                <h4 class="alert-heading">Warning!</h4>
+                <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+            </div>
+        </noscript>
+
+        <div id="content" class="span10">
+           
+			   <div ng-view></div>
+				
+        </div>
+    </div>  <!-- row-fluid -->
+</div> <!-- div container-fluid -->
+<!-- Navigate the Body -->
+
+</body>
+</html>

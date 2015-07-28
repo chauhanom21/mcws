@@ -1,0 +1,46 @@
+<div class="row-fluid sortable" ng-init="loadReportDetail();">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-file"></i> Coder CNR Report Details </h2>
+			
+			<div class="box-icon">
+				<a href="#coderCNRreport" class="btn btn-close btn-round"><i class="icon-arrow-left"></i> </a> 
+			</div>
+		</div>
+	    <div class="box-content">
+			<table id="userCnrChartDetail-table" class="gridtable table-striped table-bordered">
+				<thead>
+				   <tr>
+					<th id="fromDate">
+						From Date
+				    </th>
+					<th id="toDate">
+						To Date
+					</th>
+					<th id="clientName">
+						Client Name
+					</th>
+					<th id="chartType">
+						Chart Type
+					</th>
+					<th id="chartCount">
+						Total CNR Charts
+					</th>
+				  </tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in  pagedItems[currentPage]">
+						<td class="center">{{item.fromDate}}</td>
+						<td class="center">{{item.toDate}}</td>
+						<td class="center">{{item.clientName}}</td>
+						<td class="center">{{item.chartType}}</td>
+						<td class="center">{{item.cnrCount}}</td>
+					</tr>
+				</tbody>
+			</table>
+		<div id="pagination-mu-div-id" class="pagination pagination-left">
+			<pagination total-items="bigTotalItems" page="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-click="setPage()"></pagination>
+		</div>
+	    </div>
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->

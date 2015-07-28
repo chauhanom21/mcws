@@ -1,0 +1,206 @@
+<div ng-show="globalAudit">
+	<ul>
+		<li style="float:right; margin-right:120px;">
+			<div ng-if="user.remWorkload"><b> Remaining Work Load </b></div>
+		</li>
+		<li style="float:right; margin-right:-258px;">
+			<div  class="rectangle" ng-if="user.remWorkload">{{user.remWorkload}} EM </div>
+		</li>
+		 
+    </ul>
+</div>
+<div id="dateError" class="ui-error-message">
+ 	<p>From Date should be less than To Date!</p>
+</div>
+<div id="box-content" class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-file"></i>Auditing</h2>
+			<ul ng-hide="globalAudit">
+				<li style="float:right; margin-right:110px; margin-top:4px; font-size:13px;">
+					<div ng-if="user.remWorkload"> Remaining Work Load </div>
+				</li>
+				<li style="float:right; margin-right:-263px; margin-top:3px; font-size:13px;">
+					<div ng-if="user.remWorkload" class="rectangle" >{{user.remWorkload}} EM </div>
+				</li>
+		    </ul>
+			<div class="box-icon">
+			  <div id="quotescointainer">
+				<div ng-show="globalAudit" class="control-group">
+			    	<div class="inline" style="margin-left:7px;">
+						<p>From : <input type="text" ng-model="startDate" placeholder="This date" id="fromdatetime" style="width:101px;"  ng-required="true"></p>
+					</div>
+					<div class="inline"  style="margin-left:7px;">
+						<p>To : <input type="text" ng-model="endDate" placeholder="This date" id="todatetime" style="width:101px;"  ng-required="true"></p>
+					</div>
+					
+					<div class="inline"  style="margin-left:7px;">
+						<button id="user-search-reset-button"
+						ng-click="loadDailyAuditTasks();" type="submit" class="btn btn-success">Load Tasks</button>
+					</div>
+			    </div>
+			  </div>
+			  <div ng-show="globalAudit" class="entrySelect" style="margin-top:-49px;">
+					<span>View</span>
+					<select ng-model="itemsPerPage"  ng-change = "groupToAuditPages()" style="width:55px;">
+						<option value="5"> 5 </option>
+						<option value="10"> 10 </option>
+						<option value="15"> 15 </option>
+					</select>
+					<span>items</span>	
+			 </div>
+	
+		    </div><!-- box-icon -->
+		    
+		</div>
+		
+		<div id="mytask-table-content" class="box-content" ng-show="localAudit">
+			<div class="pagination pagination-right">
+			 	<form name="fetchAuditData" class="form-audit-data">
+				  <div class="pagination pagination-right">
+					<button id="audit-fetch-button" ng-click="fetchTaskTOAudit(true)" ng-disabled="pagedItems.length > 0 || fetchAuditData.$invalid" type="submit" class="btn btn-primary">Fetch Audit Task</button>
+				  </div>
+				</form>
+			</div>
+			
+			<table id="mytask-table"  class="table table-striped table-bordered">
+				<thead>
+				   <tr>
+					<th id="acc-id"><a>	Account/MR No </a></th>
+					<th id="client"><a>	Client </a></th>
+					<th id="chart-type"><a>	Chart Type </a></th>
+					<th id="chart-spl"><a>	Specialization </a></th>
+					<th id="tat"><a> TAT </a></th>
+					<th id="em"><a>	LOS </a></th>
+					<th id="dis-date"><a> Discharge Date </a></th>
+					<th id="status"><a>	Status </a>	</th>
+					<th id="action">Action</th>
+				  </tr>
+				</thead>
+	
+				<tbody>
+					<tr ng-repeat="task in  pagedItems[currentPage] | orderBy:predicate:reverse">
+						<td class="center"> {{task.accountNumber}}  {{task.mrNumber}}</td>
+						<td class="center"> {{task.client}} </td>
+						<td class="center"> {{task.chartType}} </td>
+						<td class="center"> {{task.specilization}} </td>
+						<td class="center"> {{task.tat}} </td>
+						<td class="center"> {{task.los}} </td>				
+						<td class="center"> {{task.dischargeDate}} </td>	
+						<td class="center"> {{task.status}} </td>
+						<td class="center" style="white-space: nowrap">
+							<div class="buttons" ng-show="!rowform.$visible">
+								<button id="task-edit-row-button" class="btn btn-info" ng-click="loadGradingsheetForm(task.id, task.chartType)"><i class="icon-edit icon-white"></i>Audit</button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+	
+			</table>
+		</div><!-- box-content -->
+		
+		
+		<div class="box-content" ng-show="globalAudit">	
+			<form class="form-search">
+				<div class='input-group inline' style="position: relative; top: 0px;">
+					<div class="input-append leftAlign">
+						<select class="select-style-box"  ng-options = "c.name as c.name for c in clientDetails" 
+						ng-model = "queryClient"  ng-change = "search()">
+							<option value="">-- Filter By Client --</option>
+						</select>
+					</div>
+					<div class="input-append leftAlign">
+						<select class="select-style-box"  ng-options = "cs.text as cs.text for cs in chartTypes" 
+						ng-model = "queryChartType"  ng-change = "search()" style="width: 175px;">
+							<option value="">-- Filter By chartType --</option>
+						</select>
+					</div>
+					
+					<div class="input-append leftAlign">
+						<input id="task-search-client" type="text" ng-model="queryDRG" class="input-medium search-query" 
+						placeholder="Search By DRG">
+<!-- 						<button id="task-search-client-button" ng-click="search()" type="submit" class="btn"> -->
+<!-- 						  <i class="icon-search"></i> -->
+<!-- 						</button> -->
+					</div>
+					
+					<div class="input-append">
+						<input id="task-search-client" type="text" ng-model="query" class="input-medium search-query" 
+						placeholder="Search Others">
+						<button id="task-search-client-button" ng-click="search()" type="submit" class="btn">
+						  <i class="icon-search"></i>
+						</button>
+					</div>
+					
+					<button id="user-search-reset-button" ng-click="queryClient=''; queryChartType=''; 
+					query=''; queryDRG=''; search()" ng-disabled="!queryClient && !queryChartType && !query && !queryDRG" 
+					type="submit" class="btn leftAlign">Reset</button>
+				</div>
+			</form>
+			
+			<table id="monitor-task-table" class="table table-striped table-bordered bootstrap-datatable datatable">
+				<thead>
+			    	<tr>
+						<th id="acc-id"><a>	Account/MR No </a></th>
+						<th id="client"><a>	Client </a></th>
+						<th id="chart-type"><a>	Chart Type </a></th>
+						<th id="chart-spl"><a>	Specialization </a></th>
+						<th id="tat"><a> TAT </a></th>
+						<th id="em"><a>	LOS </a></th>
+						<th id="dis-date"><a> Discharge Date </a></th>
+						<th id="drg"><a> DRG </a></th>
+						<th id="drg"><a> Insurance </a></th>
+						<th id="comments"><a> Comment </a></th>
+						<th id="status"><a>	Status </a>	</th>
+						<th id="action">Action</th>
+				  	</tr>
+				</thead>
+
+				<tbody>
+					<tr ng-repeat="task in  auditItems[currentPage] | orderBy:predicate:reverse">
+						<td class="center"> {{task.accountNumber}}  {{task.mrNumber}}</td>
+						<td class="center"> {{task.client}} </td>
+						<td class="center"> {{task.chartType}} </td>
+						<td class="center"> {{task.specilization}} </td>
+						<td class="center"> {{task.tat}} </td>
+						<td class="center"> {{task.los}} </td>				
+						<td class="center"> {{task.dischargeDate}} </td>	
+						<td class="center"> {{task.drg}} </td>
+						<td class="center"> {{task.insurance}} </td>	
+						<td class="center"> {{task.comments}} </td>	
+						<td class="center"> {{task.status}} </td>
+						<td class="center" style="white-space: nowrap">
+							<div class="buttons" ng-show="!rowform.$visible">
+								<button id="task-edit-row-button" class="btn btn-info" ng-click="loadGradingsheetForm(task.id, task.chartType)"><i class="icon-edit icon-white"></i>Audit</button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div ng-show="showWarnMessage" style="margin-top:30px; margin-bottom:30px;">
+				<div class="alert alert-block ">
+					<p style="margin-left:350px; font-size:15px;color: #024871;">No items are available to Audit!</p>
+				</div>
+			</div>
+			<div id="pagination-mu-div-id" class="pagination pagination-right">
+				<pagination total-items="bigTotalItems" page="bigCurrentPage" max-size="maxSize" class="pagination-sm" items-per-page="itemsPerPage" boundary-links="true" rotate="false" num-pages="numPages" ng-click="setPage()"></pagination>
+				 <!-- pre>Page: {{bigCurrentPage}} / {{numPages}}</pre-->
+			</div>
+
+		</div>
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->
+
+<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3>Message</h3>
+        </div>
+        <div class="modal-body">
+            <b>{{ msg }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <!--button class="btn btn-warning" ng-click="cancel()">Cancel</button-->
+        </div>
+</script>

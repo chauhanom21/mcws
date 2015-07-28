@@ -1,0 +1,47 @@
+<div class="row-fluid sortable" ng-init="loadUserNotesValue();">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-file"></i>Notes</h2>
+		</div>
+		<div id="note-content" class="box-content">
+			<form class="form-horizontal" ng-submit="updateUserNotes();">
+			  <fieldset>
+			
+				<!-- Form Name -->
+				<legend>User Notes</legend>
+				
+				<!-- Textarea -->
+				<div class="control-group">
+				  <label class="control-label" for="textarea">Notes</label>
+				  <div class="controls">                     
+				    <textarea id="notes" name="notes" ng-model="notes" rows="10" style="width: 390px;">default text</textarea>
+				  </div>
+				</div>
+				
+				<!-- Button -->
+				<div class="control-group">
+				  <label class="control-label" for="singlebutton"></label>
+				  <div class="controls">
+				    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Update</button>
+				  </div>
+				</div>
+			
+			  </fieldset>
+			</form>
+					
+		</div><!-- box-content -->
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->
+
+<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3>Message</h3>
+        </div>
+        <div class="modal-body">
+            <b>{{ msg }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <!--button class="btn btn-warning" ng-click="cancel()">Cancel</button-->
+        </div>
+</script>

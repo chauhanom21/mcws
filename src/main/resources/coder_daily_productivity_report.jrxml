@@ -1,0 +1,1220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dailyProductivityReport" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f3bfa30-6f52-4ea8-b0de-80b339bf0715">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="601"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\DEV-HUB\\iReports\\myjars\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="empcode" class="java.lang.String">
+		<fieldDescription><![CDATA[empcode]]></fieldDescription>
+	</field>
+	<field name="empname" class="java.lang.String">
+		<fieldDescription><![CDATA[empname]]></fieldDescription>
+	</field>
+	<field name="location" class="java.lang.String">
+		<fieldDescription><![CDATA[location]]></fieldDescription>
+	</field>
+	<field name="avgHours" class="java.lang.String">
+		<fieldDescription><![CDATA[avgHours]]></fieldDescription>
+	</field>
+	<field name="hcIPChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[hcIPChart]]></fieldDescription>
+	</field>
+	<field name="hcIPChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[hcIPChartHrs]]></fieldDescription>
+	</field>
+	<field name="hcOPChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[hcOPChart]]></fieldDescription>
+	</field>
+	<field name="hcOPChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[hcOPChartHrs]]></fieldDescription>
+	</field>
+	<field name="orhsERChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[orhsERChart]]></fieldDescription>
+	</field>
+	<field name="orhsERChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[orhsERChartHrs]]></fieldDescription>
+	</field>
+	<field name="orhsIPChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[orhsIPChart]]></fieldDescription>
+	</field>
+	<field name="orhsIPChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[orhsIPChartHrs]]></fieldDescription>
+	</field>
+	<field name="totalCharts" class="java.lang.Long">
+		<fieldDescription><![CDATA[totalCharts]]></fieldDescription>
+	</field>
+	<field name="totalHours" class="java.lang.String">
+		<fieldDescription><![CDATA[totalHours]]></fieldDescription>
+	</field>
+	<field name="orhsM2Chart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[orhsM2Chart]]></fieldDescription>
+	</field>
+	<field name="orhsM2ChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[orhsM2ChartHrs]]></fieldDescription>
+	</field>
+	<field name="orhsMDACChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[orhsMDACChart]]></fieldDescription>
+	</field>
+	<field name="orhsMDAChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[orhsMDAChartHrs]]></fieldDescription>
+	</field>
+	<field name="orhsOPChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[orhsOPChart]]></fieldDescription>
+	</field>
+	<field name="orhsOPChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[orhsOPChartHrs]]></fieldDescription>
+	</field>
+	<field name="orhsPhyChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[orhsPhyChart]]></fieldDescription>
+	</field>
+	<field name="orhsPhyChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[orhsPhyChartHrs]]></fieldDescription>
+	</field>
+	<field name="orhsEKGECGChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[orhsEKGECGChartHrs]]></fieldDescription>
+	</field>
+	<field name="orhsEKGECGChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[orhsEKGECGChart]]></fieldDescription>
+	</field>
+	<field name="orhsANCChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[orhsANCChartHrs]]></fieldDescription>
+	</field>
+	<field name="orhsANCChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[orhsANCChart]]></fieldDescription>
+	</field>
+	<field name="hcERChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[hcERChart]]></fieldDescription>
+	</field>
+	<field name="hcERChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[hcERChartHrs]]></fieldDescription>
+	</field>
+	<field name="mccgIPChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[mccgIPChart]]></fieldDescription>
+	</field>
+	<field name="mccgIPChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[mccgIPChartHrs]]></fieldDescription>
+	</field>
+	<field name="pcIPChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[pcIPChart]]></fieldDescription>
+	</field>
+	<field name="pcIPChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[pcIPChartHrs]]></fieldDescription>
+	</field>
+	<field name="pcOPChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[pcOPChart]]></fieldDescription>
+	</field>
+	<field name="pcOPChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[pcOPChartHrs]]></fieldDescription>
+	</field>
+	<field name="halifaxEDChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[halifaxEDChart]]></fieldDescription>
+	</field>
+	<field name="halifaxEDChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[halifaxEDChartHrs]]></fieldDescription>
+	</field>
+	<field name="halifaxIPChart" class="java.lang.Integer">
+		<fieldDescription><![CDATA[halifaxIPChart]]></fieldDescription>
+	</field>
+	<field name="halifaxIPChartHrs" class="java.lang.String">
+		<fieldDescription><![CDATA[halifaxIPChartHrs]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="292" y="0" width="1100" height="35" forecolor="#000000" backcolor="#DA9694" uuid="0de5848c-4f0f-49a3-9d17-db8fb021c67d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clients And No Of Charts Coded ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="-36" width="56" height="121" forecolor="#FFFFFF" backcolor="#60497A" uuid="ba8d167e-a14b-4da0-8b44-85a5eb1b0509"/>
+				<box topPadding="0">
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ Emp Code  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="56" y="-36" width="135" height="121" forecolor="#FFFFFF" backcolor="#60497A" uuid="6b05e0f9-545b-45b1-b207-411b07333a0c"/>
+				<box topPadding="0">
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Employee Name ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="191" y="-36" width="101" height="121" forecolor="#FFFFFF" backcolor="#60497A" uuid="0309ef37-cf32-4c92-9b74-0eb108736033"/>
+				<box topPadding="0">
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Location]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="293" y="0" width="453" height="30" forecolor="#000000" backcolor="#B1A0C7" uuid="bc4a290f-eb68-4be0-a7f3-fd0d6de68ccf"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORHS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="746" y="0" width="206" height="30" forecolor="#000000" backcolor="#FABF8F" uuid="bc4a290f-eb68-4be0-a7f3-fd0d6de68ccf"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="952" y="0" width="50" height="30" forecolor="#000000" backcolor="#D8E4BC" uuid="bc4a290f-eb68-4be0-a7f3-fd0d6de68ccf"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MCCG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1002" y="0" width="120" height="30" forecolor="#000000" backcolor="#8DB4E2" uuid="bc4a290f-eb68-4be0-a7f3-fd0d6de68ccf"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[P.C]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1122" y="0" width="120" height="30" forecolor="#000000" backcolor="#808080" uuid="bc4a290f-eb68-4be0-a7f3-fd0d6de68ccf"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Halifax ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1242" y="0" width="50" height="85" forecolor="#FFFFFF" backcolor="#37378B" uuid="390116bf-9d91-42c9-be2f-8e655a253628"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Charts]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1292" y="0" width="50" height="85" forecolor="#FFFFFF" backcolor="#633D67" uuid="390116bf-9d91-42c9-be2f-8e655a253628"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1342" y="0" width="50" height="85" forecolor="#FFFFFF" backcolor="#AC7015" uuid="390116bf-9d91-42c9-be2f-8e655a253628"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Avg Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="292" y="30" width="26" height="55" backcolor="#B1A0C7" uuid="6c2b217e-73fb-4d8b-b641-f1a0c6111376"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="30" width="26" height="55" uuid="938cf599-f47f-4b46-8dac-6117775a5471"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="344" y="30" width="26" height="55" backcolor="#B1A0C7" uuid="7fd8813f-7e5a-4ba4-a0f2-7254f85d7453"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="30" width="26" height="55" uuid="085bd733-d924-401a-8f1d-4da3f3541895"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="396" y="30" width="26" height="55" backcolor="#B1A0C7" uuid="254b266a-4ec8-4be1-8f01-d6133a73f6ec"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="30" width="26" height="55" uuid="d4b39b68-5a9e-404a-9dc5-b0893d23f19d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="448" y="30" width="26" height="55" backcolor="#B1A0C7" uuid="b5ca914e-47e5-4658-89fd-80c5a454eff6"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[M2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="474" y="30" width="26" height="55" uuid="54333785-4b06-4a54-9b14-8c43e4706adb"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="500" y="30" width="27" height="55" backcolor="#B1A0C7" uuid="0969562a-e94a-4df2-bfde-04577c4a9118"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="527" y="30" width="25" height="55" uuid="a783a3e3-c3ea-47b2-b2cf-9311da945524"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="604" y="30" width="55" height="55" backcolor="#B1A0C7" uuid="fe3a59e9-dd84-4239-bae1-883a68f85b9f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EKG/ECG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="659" y="30" width="26" height="55" uuid="4b5aec27-2fa8-462f-a078-74e0f8651f24"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="685" y="30" width="35" height="55" backcolor="#B1A0C7" uuid="e8985a02-9956-4f83-9fab-eb02dd3e5fad"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Physician Coding]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="720" y="30" width="26" height="55" uuid="c8446cb4-b5cc-4854-afd1-19448b87b460"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="552" y="30" width="26" height="55" backcolor="#B1A0C7" uuid="1df65e34-e558-4fc3-ba19-fd06bd36ea55"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="578" y="30" width="26" height="55" uuid="bb72a44e-1b82-4760-9180-7badc9f907d4"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="746" y="30" width="26" height="55" backcolor="#FABF8F" uuid="7020b458-f69e-481d-9cc4-783c8c2494a1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="772" y="30" width="43" height="55" uuid="4459bdca-bf6f-434f-8591-bbaf17062e97"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="815" y="30" width="25" height="55" backcolor="#FABF8F" uuid="7020b458-f69e-481d-9cc4-783c8c2494a1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="840" y="30" width="43" height="55" uuid="4459bdca-bf6f-434f-8591-bbaf17062e97"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="883" y="30" width="26" height="55" backcolor="#FABF8F" uuid="7020b458-f69e-481d-9cc4-783c8c2494a1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="909" y="30" width="43" height="55" uuid="4459bdca-bf6f-434f-8591-bbaf17062e97"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="952" y="30" width="25" height="55" backcolor="#D8E4BC" uuid="7020b458-f69e-481d-9cc4-783c8c2494a1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="977" y="30" width="25" height="55" uuid="4459bdca-bf6f-434f-8591-bbaf17062e97"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1002" y="30" width="30" height="55" backcolor="#8DB4E2" uuid="7020b458-f69e-481d-9cc4-783c8c2494a1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1032" y="30" width="30" height="55" uuid="4459bdca-bf6f-434f-8591-bbaf17062e97"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1062" y="30" width="30" height="55" backcolor="#8DB4E2" uuid="7020b458-f69e-481d-9cc4-783c8c2494a1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1092" y="30" width="30" height="55" uuid="4459bdca-bf6f-434f-8591-bbaf17062e97"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1122" y="30" width="30" height="55" backcolor="#808080" uuid="7020b458-f69e-481d-9cc4-783c8c2494a1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ED]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1152" y="30" width="30" height="55" uuid="4459bdca-bf6f-434f-8591-bbaf17062e97"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1182" y="30" width="30" height="55" backcolor="#808080" uuid="7020b458-f69e-481d-9cc4-783c8c2494a1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1212" y="30" width="30" height="55" uuid="4459bdca-bf6f-434f-8591-bbaf17062e97"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hrs]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="56" height="13" uuid="332c21e7-9a0c-4cd7-af18-304e7bcf69fd"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="0" width="135" height="13" uuid="626d832a-7d07-4b0b-b890-9453e7d06a5a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="0" width="101" height="13" uuid="1d19ed7d-8dea-4744-85bc-5bf38419b7d6"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="0" width="26" height="13" uuid="f03b684e-0eae-4476-b46e-cd6ab9c8afe8"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsIPChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="318" y="0" width="26" height="13" uuid="ef12de25-48d3-4524-af2a-17c5d807f29d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsIPChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="344" y="0" width="26" height="13" uuid="30374bed-4020-48ff-8d01-6cf4aa3a92da"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsOPChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="26" height="13" uuid="db37ff27-84df-406b-b3ef-0cd3a60945f5"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsOPChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="396" y="0" width="26" height="13" uuid="a9ce4f4a-f029-436d-924a-47cc090cece5"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsERChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="0" width="26" height="13" uuid="f746012a-8535-4f77-af93-036d277a5d06"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsERChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="448" y="0" width="26" height="13" uuid="344fdfbe-69f9-4627-a5d7-35bbeb89648b"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsM2Chart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="0" width="26" height="13" uuid="3fd74df0-0eb8-4dc3-88d9-183b2d356c8c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsM2ChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="0" width="27" height="13" uuid="2299564f-e907-44e8-ac7f-0d5476dd00a1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsMDACChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="527" y="0" width="25" height="13" uuid="74595a62-1088-466b-b0d1-8a4258881505"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsMDAChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="604" y="0" width="55" height="13" uuid="f6173ca6-424b-4a18-8587-da24c4e815b9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsEKGECGChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="659" y="0" width="26" height="13" uuid="cbf8aed8-cf42-4adf-a3ca-0082183bcfa0"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsEKGECGChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="685" y="0" width="35" height="13" uuid="66bb485d-d725-4def-8fef-e3414fe4b157"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsPhyChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="720" y="0" width="26" height="13" uuid="ef12ce71-695a-4b34-9a15-702532a90d54"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsPhyChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="552" y="0" width="26" height="13" uuid="4a0dfc6f-39e8-488f-a9c4-d725033287bd"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsANCChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="578" y="0" width="26" height="13" uuid="f8a8fa83-ad69-4638-864f-7dee6db32049"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orhsANCChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="746" y="0" width="26" height="13" uuid="dcbbf813-37fd-4b5f-9121-4ba7943aa1ba"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hcIPChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="772" y="0" width="43" height="13" uuid="ca256f2d-b5be-4335-ae61-7fe805b74012"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hcIPChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="815" y="0" width="25" height="13" uuid="dcbbf813-37fd-4b5f-9121-4ba7943aa1ba"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hcOPChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="840" y="0" width="43" height="13" uuid="ca256f2d-b5be-4335-ae61-7fe805b74012"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hcOPChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="883" y="0" width="26" height="13" uuid="dcbbf813-37fd-4b5f-9121-4ba7943aa1ba"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hcERChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="909" y="0" width="43" height="13" uuid="ca256f2d-b5be-4335-ae61-7fe805b74012"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hcERChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="952" y="0" width="25" height="13" uuid="dcbbf813-37fd-4b5f-9121-4ba7943aa1ba"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mccgIPChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="977" y="0" width="25" height="13" uuid="081b48aa-6608-41c6-aa0b-bc2033034ef9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mccgIPChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1002" y="0" width="30" height="13" uuid="dcbbf813-37fd-4b5f-9121-4ba7943aa1ba"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pcIPChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1032" y="0" width="30" height="13" uuid="081b48aa-6608-41c6-aa0b-bc2033034ef9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pcIPChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1062" y="0" width="30" height="13" uuid="dcbbf813-37fd-4b5f-9121-4ba7943aa1ba"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pcOPChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1092" y="0" width="30" height="13" uuid="081b48aa-6608-41c6-aa0b-bc2033034ef9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pcOPChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1122" y="0" width="30" height="13" uuid="dcbbf813-37fd-4b5f-9121-4ba7943aa1ba"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{halifaxEDChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1152" y="0" width="30" height="13" uuid="081b48aa-6608-41c6-aa0b-bc2033034ef9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{halifaxEDChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1182" y="0" width="30" height="13" uuid="dcbbf813-37fd-4b5f-9121-4ba7943aa1ba"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{halifaxIPChart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1212" y="0" width="30" height="13" uuid="081b48aa-6608-41c6-aa0b-bc2033034ef9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{halifaxIPChartHrs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1242" y="0" width="50" height="13" uuid="ca256f2d-b5be-4335-ae61-7fe805b74012"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalCharts}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1292" y="0" width="50" height="13" uuid="ca256f2d-b5be-4335-ae61-7fe805b74012"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalHours}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1342" y="0" width="50" height="13" uuid="ca256f2d-b5be-4335-ae61-7fe805b74012"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avgHours}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

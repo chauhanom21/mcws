@@ -1,0 +1,454 @@
+<div id="box-content" class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-file"></i> Coding IP Chart </h2>
+			<ul>
+				<li style="float:right; margin-right:110px; margin-top:4px; font-size:13px;">
+					<div ng-if="user.remWorkload"> Remaining Work Load </div>
+				</li>
+				<li style="float:right; margin-right:-263px; margin-top:3px; font-size:13px;">
+					<div ng-if="user.remWorkload" class="rectangle" >{{user.remWorkload}} EM </div>
+				</li>
+		    </ul>
+		</div>
+		<div class="box-content">
+			<!-- Nav tabs -->
+          	<ul class="nav nav-tabs">
+              <li id="coding-tab" class="active"><a data-target="#codingChart" data-toggle="tab" accesskey="c">Coding</a></li>
+              <li id="history-tab"><a data-target="#history" data-toggle="tab" >History</a></li>
+              <li style="margin-top:10px; margin-left:50px;"><span>Task Details:<a ng-click="showTaskDetails();">show</a> <a ng-click="hideTaskDetails();">hide</a></span></li>
+              <li>
+				<div ng-if="showTimer" class="CSS_Table_Example" style="margin-left:500px; margin-top:-9px;"> 
+					<table>
+						<thead> 
+						<tr>
+							<th>Hours</th>
+							<th>Minutes</th>
+							<th>Seconds</th>
+						</tr>
+						</thead>
+						<tbody> 
+							<tr>
+								<td><timer start-time='startTime' interval="1000"> {{hhours}}  </timer></td>
+								<td><timer start-time='startTime' interval="1000"> {{mminutes}}  </timer></td>
+								<td><timer start-time='startTime' interval="1000"> {{sseconds}} </timer></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			  </li>
+          	</ul>
+          	
+          	<div class="tab-content" style="overflow">
+          	  <div class="tab-pane active" id="codingChart">
+          	      <form name="codingForm" class="form-horizontal" ng-submit="submit()">
+					<fieldset ng-show="dispalyTaskDetails" class="fieldsetClass">
+<!-- 						<legend>Task Details</legend> -->
+						<div class="fieldset-control-group">
+							<div class="inline">
+								<label class="control-label">Client Name</label> 
+								<div class="controls">
+									<input class="input-medium" type="text" name="clientName" value="{{chartDetail.client}}" readonly/>
+								</div>
+							</div>			
+							<div class="inline">
+								<label class="control-label">Chart Type</label>
+								<div class="controls">
+								  <input class="input-medium" type="text" name="chartType" value="{{chartDetail.chartType}}" readonly/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Chart Specialization</label>
+								<div class="controls">
+								  <input class="input-medium" type="text" name="specialization" value="{{chartDetail.specilization}}" readonly/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Account/MR Number</label>
+								<div class="controls">
+								  <input class="input-medium" type="text" name="account" value="{{chartDetail.accountNumber}} {{chartDetail.mrNumber}}" readonly/>
+								</div>
+							</div>						
+							<div class="inline">
+								<label class="control-label">TAT</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="tat" type="text" value="{{chartDetail.tat}}" readonly/>
+								</div>
+							</div>						
+							<div class="inline">
+								<label class="control-label">LOS</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="los" type="text" value="{{chartDetail.los}}" readonly/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">EM</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="em" type="text" value="{{chartDetail.em}}" readonly/>
+								</div>
+							</div>	
+							<div class="inline">
+								<label class="control-label">Discharge Date</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="dischargeDate" type="text" value="{{chartDetail.dischargeDate}}" readonly/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Patient Name</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="patientName" type="text" value="{{chartDetail.patientName}}" readonly/>
+								</div>
+							</div>									
+							<div class="inline">
+								<font color="red"><b><i><label class="control-label">Task Assigned Time</label></i></b></font>
+								<div class="controls">
+								  <font color="red"><b><input class="input-medium uneditable-input" name="taskAssignedTime" type="text" value="{{chartDetail.taskAssignedTime}}" readonly/></b></font>
+								</div>
+							</div>
+							
+						</div>
+					</fieldset>
+					<fieldset  style="margin-top:10px; height:350px;overflow:auto;">
+						<div class="control-group" id="insuranceBox">
+							<div class="inline">
+								<label class="control-label">Insurance</label>
+								<div class="controls">
+									<select class="select-style-box" ng-model="ipChart.insurance" ng-options = "c.value as c.name for c in insuranceOptions"  
+									 ng-change="displayInsuranceBox();" ng-required="true"  >
+										<option value="">--Select--</option>
+									</select>
+								</div>
+								<!-- Checkboxes (inline) -->
+								<div ng-if="insuranceOtherReq" class="control-group">
+							  		<div class="controls" >
+							  			<input class="input-medium focused" id="insuranceOther" name="insuranceOther" type="text" ng-model="ipChart.insuranceOther" />
+							  		</div>	
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">DISP</label>
+								<div class="controls" id="disp">
+									<input class="input-medium focused" id="disp" name="disp" type="text" ng-model="ipChart.disp" required  />
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">ADX</label>
+								<div class="controls">
+									<input class="input-medium focused" id="adx" name="adx" type="text" ng-model="ipChart.adx" required  />
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="inline">
+								<label class="control-label">PDX</label>
+								<div class="controls" id="Pdx">
+									<input class="input-medium focused" id="pdx" name="pdx" type="text" ng-model="ipChart.pdx" required  />
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">POA</label>
+								<div class="controls" id="Pdx-POA">
+									<input class="input-medium focused" id="poa" name="poa" type="text" ng-model="ipChart.pdxpoa" required  />
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="inline" id="SdxPOABoxGroup">
+							  <table style="text-align:left; margin-left:96px;" class="codingtable">
+								<thead>
+								  <tr>
+									<th>SDX</th>
+									<th>POA</th>
+									<th></th>
+								  </tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="sdxg in ipChart.sdxpoaGroup">
+										<td ng-repeat="sdx in sdxg.sdx">
+											<input class="mcws-input-small focused" id="sdx" name="sdx" type="text" ng-model="sdx.value" required  />
+										</td>
+										<td ng-repeat="poa in sdxg.sdx_poa">
+											<input class="mcws-input-small focused" id="sdx_poa" name="sdx_poa" type="text" ng-model="poa.value" required  />
+										</td>
+										<td>
+								 			<input type='button' value='+' id='sdxAddButton' class="btn btn-primary" ng-click="addSdxNewRow($index)"  >
+											<input type='button' value='-' id='sdxRemoveButton' class="btn btn-primary" ng-click="removeSdxRow($index)"  >
+									  	</td>
+									</tr>
+								</tbody>
+							  </table>
+							</div>
+						  	<div class="inline" id="icdBoxGroup">
+							  <table style="text-align:left; margin-left:50px;" class="codingtable">
+								<thead>
+								  <tr>
+									<th>ICD-|||</th>
+									<th>DOS</th>
+									<th>Physician ID</th>
+									<th></th>
+								  </tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="icdg in ipChart.ipIcdGroup">
+										<td ng-repeat="icd in icdg.icd">
+											<input class="mcws-input-small focused" id="icd" name="icd" ng-model="icd.value" type="text" required  />
+										</td>
+										<td ng-repeat="dos in icdg.dos">
+											<input class="mcws-input-small focused" id="dos" name="dos" ng-model="dos.value" type="text" required  />
+										</td>
+										<td ng-repeat="phy in icdg.phy">
+											<input class="mcws-input-small focused" id="phy" name="phy" ng-model="phy.value" type="text" required  />
+										</td>
+										<td>
+								 			<input type="button" value="+"  class="btn btn-primary" ng-click="addIpIcdGroupRow($index)"/>
+								 			<input type="button" value="-"  class="btn btn-primary" ng-click="removeIpIcdGroupRow($index)"/>
+									  	</td>
+									</tr>
+								</tbody>
+							  </table>
+						   </div>
+					    </div>
+						<div class="control-group">
+							<div class="inline">
+								<label class="control-label" for="selectError">Status</label>
+								<div class="controls">
+									<select class="select-style-box" id="status" name="status" data-rel="chosen" ng-options = "opn for opn in options" 
+										ng-model="ipChart.status" required  >
+										<option value="">--Select--</option>
+									</select>
+								</div>
+							</div>	
+							<div class="inline">
+								<label class="control-label">Comments</label>
+								<div class="controls">
+									<textarea id="comment" name="comment" class="focused form-control" rows="3" style="width: 348px;" 
+									ng-model="ipChart.comments" required  ></textarea>
+								</div>
+							</div>
+						</div>	
+						<div class="control-group">
+							<div class="inline">
+								<label class="control-label">Additional Information</label>
+								<div class="controls">
+									 <li ng-repeat="account in ipChart.account">
+									 	<input class="input-medium focused" id="account" name="account" type="text" ng-model="account.value" />
+									 	 <input type='button' value='+' id='accAddButton' class="btn btn-primary" ng-click="addNewRow('account', $index)"  >
+							 			 <input type='button' value='-' id='accRemoveButton' class="btn btn-primary" ng-click="removeRow('account', $index)"  >	
+									 </li>					 
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="inline">
+								<label class="control-label" style="width:142px;">DRG</label>
+								<div class="controls" id="drg" style="margin-left:162px;">
+									<input class="input-medium focused" id="drg" name="drg" type="text" ng-model="ipChart.drg" valid-number required  />
+								</div>
+								<div class="controls error" ng-if="codingForm.drg.$dirty && codingForm.drg.$error.required"><font color="red"> Invalid Entry, Insert Only Numbers.</font></div>
+							</div>
+						</div>
+					</fieldset>
+					<fieldset>
+						<div class="form-actions">
+							<button id="submit_button" type="submit" class="btn btn-primary" >Submit</button>
+							<button id="save_button" type="button" class="btn btn-success" accesskey="s"
+							ng-click="saveCodingForm()">Save</button>
+							<button id="cancel_button" type="button" ng-click="Cancel()" class="btn btn-default">Cancel</button>
+						</div>
+				  </fieldset>
+			  	  </form>
+          	  </div><!-- codingChart div -->
+          	  <div class="tab-pane" id="history">
+	              <form class="form-horizontal">
+	              	<fieldset ng-show="dispalyTaskDetails" class="fieldsetClass">
+<!-- 						<legend>Task Details</legend> -->
+						<div class="fieldset-control-group">
+							<div class="inline">
+								<label class="control-label">Client Name</label> 
+								<div class="controls">
+									<input class="input-medium" type="text" name="clientName" value="{{chartDetail.client}}" readonly/>
+								</div>
+							</div>			
+							<div class="inline">
+								<label class="control-label">Chart Type</label>
+								<div class="controls">
+								  <input class="input-medium" type="text" name="chartType" value="{{chartDetail.chartType}}" readonly/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Chart Specialization</label>
+								<div class="controls">
+								  <input class="input-medium" type="text" name="specialization" value="{{chartDetail.specilization}}" readonly/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Account/MR Number</label>
+								<div class="controls">
+								  <input class="input-medium" type="text" name="account" value="{{chartDetail.accountNumber}} {{chartDetail.mrNumber}}" readonly/>
+								</div>
+							</div>						
+							<div class="inline">
+								<label class="control-label">TAT</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="tat" type="text" value="{{chartDetail.tat}}" readonly/>
+								</div>
+							</div>						
+							<div class="inline">
+								<label class="control-label">LOS</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="los" type="text" value="{{chartDetail.los}}" readonly/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">EM</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="em" type="text" value="{{chartDetail.em}}" readonly/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Discharge Date</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="dischargeDate" type="text" value="{{chartDetail.dischargeDate}}" readonly/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Patient Name</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="patientName" type="text" value="{{chartDetail.patientName}}" readonly/>
+								</div>
+							</div>						
+							<div class="inline">
+								<font color="red"><b><i><label class="control-label">Task Assigned Time</label></i></b></font>
+								<div class="controls">
+								  <font color="red"><b><input class="input-medium uneditable-input" name="taskAssignedTime" type="text" value="{{chartDetail.taskAssignedTime}}" readonly/></b></font>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				    <fieldset>
+					<div class="clearBoth">
+						<table class="table table-striped table-bordered bootstrap-datatable datatable">
+							<thead> 
+							  <tr>
+						    	<th scope="row">Coder/QA</th>
+						    	<th scope="row">Status</th>
+						    	<th scope="row">Comments</th>
+						    	<th scope="row">Action</th>
+						      </tr>
+						  	</thead>
+						  	<tbody ng-repeat="taskDetail in taskDetailsHistory |orderBy:'reviewWorkListId'">
+							   <tr>
+							    <td>{{taskDetail.coderName}}</td>
+							  	<td>{{taskDetail.status}}</td>
+							  	<td>{{taskDetail.comments}}</td>
+							  	<td>
+									<a href="javascript:void(0);" ng-click="viewCodingChartHistory(taskDetail.codingData);" >View Coding History</a>
+							  	</td>
+							   </tr>
+						  	</tbody>
+						</table>
+						<div ng-if="displayChartHistory">
+							<form id="historyForm" class="form-horizontal">
+								<fieldset>
+									<div class="control-group">
+									  <table class="table codehistorytable">
+										<thead>
+										</thead>
+										<tbody>
+											<tr>
+											 	<th>DRG</th>
+										    </tr>
+										    <tr>
+											  <td>
+												<input class="input-small"  type="text" ng-model="chartHistory.drg" ng-disabled="true"/>
+											  </td>
+										    </tr>
+											<tr>
+ 										  	  <th>Insurance</th>
+ 										  	  <th>ADX</th>
+											</tr>
+											<tr>
+											   <td>
+												<input class="input-small" type="text" ng-model="chartHistory.insurance" ng-disabled="true"/>
+											 	<div ng-if="insuranceOtherReq" class="clearboth" >
+											  		<input class="input-small" type="text" ng-model="chartHistory.insuranceOther" ng-disabled="true"/>
+											 	</div>	
+											   </td>
+											   <td>
+												<input class="input-small"  type="text" ng-model="chartHistory.adx" ng-disabled="true"/>
+											  </td>
+											</tr>
+											<tr>
+												<th>Additional Information</th>
+											</tr>
+											<tr>
+											   <td>
+											     <li ng-repeat="account in chartHistory.account">
+											 		<input class="input-small" type="text" ng-model="account.value" ng-disabled="true"/>	
+											 	 </li>
+											   </td>
+											</tr>
+										    <tr>
+										  		<th>PDX</th>
+										  		<th>POA</th>
+										  		<th>DISP</th>
+										    </tr>
+										    <tr>
+											  <td>
+												<input class="input-small" type="text" ng-model="chartHistory.pdx" ng-disabled="true"/>
+											  </td>
+											  <td>
+											  	<input class="input-small" type="text" ng-model="chartHistory.pdxpoa" ng-disabled="true"/>
+											  </td>
+											   <td>
+											  	<input class="input-small" type="text" ng-model="chartHistory.disp" ng-disabled="true"/>
+											  </td>
+										    </tr>
+										    <tr>
+											  	<th>SDX</th>
+											  	<th>POA</th>
+										    </tr>
+										    <tr ng-repeat="sdxg in chartHistory.sdxpoaGroup">
+										  	  <td ng-repeat="sdx in sdxg.sdx">
+												<input class="input-small" type="text" ng-model="sdx.value" ng-disabled="true"/>
+										      </td>
+										  	  <td ng-repeat="poa in sdxg.sdx_poa">
+												<input class="input-small" type="text" ng-model="poa.value" ng-disabled="true"/>
+										  	  </td>
+										    </tr>
+										    <tr>
+										  		<th>ICD-|||</th>
+												<th>DOS</th>
+												<th>Physician ID</th>
+										    </tr>
+										    <tr ng-repeat="icdg in chartHistory.ipIcdGroup">
+											  <td>
+											 	<li ng-repeat="icd in icdg.icd"> 
+													<input class="input-small" type="text" ng-model="icd.value" ng-disabled="true"/>
+										  		</li>
+											  </td>
+											  <td>
+									  		  	<li ng-repeat="dos in icdg.dos">
+													<input class="input-small" type="text" ng-model="dos.value" ng-disabled="true"/>
+										  		</li>
+											  </td>
+											  <td>
+									  			<li ng-repeat="phy in icdg.phy"> 
+											  		<input class="input-small" type="text" ng-model="phy.value" ng-disabled="true"/>
+												</li>
+											  </td>
+										    </tr>
+										</tbody>
+									  </table>
+								    </div>
+								</fieldset>
+		  					</form>
+						</div><!-- displayChartCodeHistory -->
+					</div><!-- clear both -->
+					</fieldset>
+				  </form>
+              </div><!-- history Div -->
+          	</div><!-- tab-content Div -->
+		</div><!-- box-content -->
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->

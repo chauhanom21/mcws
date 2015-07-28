@@ -1,0 +1,188 @@
+<div>
+	<ul class="breadcrumb">
+        <li>
+			<a href="#{{$location.path()}}">Home {{$location.path()}} </a> 
+		</li>
+		
+    </ul>
+</div>
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-user"></i> Users </h2>
+						
+			<div class="box-icon entrySelect">
+				<span>View</span>
+				<select ng-model="itemsPerPage"  ng-change = "groupToPages()" style="width:55px;">
+						<option value="5"> 5 </option>
+						<option value="10"> 10 </option>
+						<option value="15"> 15 </option>
+				</select>
+				<span>items</span>	
+			</div>
+		</div>
+	  <div class="box-content">
+		
+		<form class="form-search">
+			<div class='input-group' style="position: relative; top: 0px;">
+				<div class="input-append leftAlign">
+					<select class="select-style-box"  ng-options = "un.name as un.name for un in usersName" 
+					ng-model = "queryName"  ng-change = "search()" >
+						<option value="">-- Filter By Name --</option>
+					</select>
+				</div>
+				<div class="input-append leftAlign">
+					<select class="select-style-box"  ng-options = "ur.role as ur.role for ur in userRoles" 
+					ng-model = "queryRole"  ng-change = "search()">
+						<option value="">-- Filter By Role --</option>
+					</select>
+				</div>
+				<div class="input-append leftAlign">
+					<select class="select-style-box"  ng-options = "loc.location as loc.location for loc in userLocations" 
+					ng-model = "queryLocation"  ng-change = "search()">
+						<option value="">-- Filter By Location --</option>
+					</select>
+				</div>
+				<button id="user-search-reset-button" ng-click="queryName=''; queryRole=''; queryLocation=''; search()"
+				 ng-disabled="!queryName && !queryRole && !queryLocation" type="submit" class="btn leftAlign">Reset</button>
+			</div>
+		</form>
+		
+		<table id="monitor-users-table" class="table table-striped table-bordered">
+			<thead>
+			   <tr>
+				<th id="name">
+					<a ng-click="predicate = 'name'; sort_by('name')">Name&nbsp;
+					  <span ng-show="predicate == 'name'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					  </span>
+					</a>
+			    </th>
+			    
+				<th id="location">
+					<a ng-click="predicate = 'location'; sort_by('location')">
+					Location&nbsp;<span ng-show="predicate == 'location'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a>
+				</th>
+				<th id="role">
+					<a ng-click="predicate = 'role'; sort_by('role')">
+					Role&nbsp;<span ng-show="predicate == 'role'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a>
+				</th>
+				<th id="jobLevel">
+					<a ng-click="predicate = 'jobLevel'; sort_by('jobLevel')">
+					Job Level&nbsp;<span ng-show="predicate == 'jobLevel'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a>
+				</th>
+				<th id="available">
+					<a ng-click="predicate = 'available'; sort_by('available')">
+					Available&nbsp;<span ng-show="predicate == 'available'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a>
+				</th>
+				<th id="actual-load">
+					<a ng-click="predicate = 'actualLoad'; sort_by('actualLoad')">
+					Total Capacity&nbsp;<span ng-show="predicate == 'actualLoad'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a>
+				</th>
+				<th id="actual-load">
+					<a ng-click="predicate = 'dailyLoad'; sort_by('dailyLoad')">
+					Daily Capacity&nbsp;<span ng-show="predicate == 'dailyLoad'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a>
+				</th>
+				<th id="completed-load">
+					<a ng-click="predicate = 'completeLoad'; sort_by('completeLoad')">
+					Completed Load&nbsp;<span ng-show="predicate == 'completeLoad'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a>
+				</th>
+				<th id="completed-chart">
+					<a ng-click="predicate = 'completedCharts'; sort_by('completedCharts')">
+					Completed Chart&nbsp;<span ng-show="predicate == 'completedCharts'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a>
+				</th>
+			   <th id="cnr">
+					<a ng-click="predicate = 'cnrCharts'; sort_by('cnrCharts')">
+					CNR&nbsp;<span ng-show="predicate == 'cnrCharts'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a>
+				</th>
+				<th id="incompleted-charts">
+					<a ng-click="predicate = 'inCompleteCharts'; sort_by('inCompleteCharts')">
+					InComplete Charts&nbsp;<span ng-show="predicate == 'inCompleteCharts'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a>
+				</th>
+				<th id="misc-charts">
+					<a ng-click="predicate = 'miscCharts'; sort_by('miscCharts')">
+					MISC Charts&nbsp;<span ng-show="predicate == 'miscCharts'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a>
+				</th>
+				<th id="total-charts">
+					<a ng-click="predicate = 'totalCharts'; sort_by('totalCharts')">
+					Total Chart&nbsp;<span ng-show="predicate == 'totalCharts'"><span ng-show="!reverse"><i class="icon-chevron-up"></i></span><span ng-show="reverse"><i class="icon-chevron-down"></i></span>
+					</span></a>
+				</th>
+			  </tr>
+			</thead>
+
+			<tbody>
+			<tr ng-repeat="user in  pagedItems[currentPage] | orderBy:predicate:reverse">
+				<td>
+					<a href="#monitorSelectedUser/{{user.id}}">{{user.name}}</a>
+				</td>
+				<td class="center">{{user.location}}</td>
+				<td class="center">{{user.role}}</td>
+				<td class="center">{{user.jobLevel}}</td>
+				
+				<td class="center">
+					
+					<div ng-hide="user.enableEdit">
+						<div id="wrap" style="position:relative;">
+					    	<div id="left" style="margin-right:10px;">{{user.available}}</div>
+					    	<div id="right" style="position:absolute;width:15px;right:0;top:0;">
+					    		<a href="" ng-click="enableEditor(user);">
+					    			<img
+									src="app/img/edit-icon.png" alt="" />
+								</a>
+					    	</div>
+						</div>
+					</div>
+					<div ng-show="user.enableEdit">
+						<form name="form" class="css-form" novalidate>
+							<div class="left-div">
+								<select required ng-model="user.available">
+									<option value="Yes">Yes</option>
+									<option value="No">No</option>
+								</select>
+							</div>
+
+							<div class="right-div">
+								<a href="" ng-click="updateUserDetail(user)"> <img
+									src="app/img/ok-icon.png" alt="" /></a> &nbsp; 
+								
+								<a href="" ng-click="disabledEditor(user)"><img
+									src="app/img/cancel-icon.png" alt="" /></a>
+							</div>
+						</form>
+					</div>
+				</td>
+				
+				<td class="center">{{user.actualLoad}}</td>
+				<td class="center">{{user.dailyLoad}}</td>
+				<td class="center">{{user.completeLoad}}</td>
+				<td class="center">{{user.completedCharts}}</td>
+				<td class="center">{{user.cnrCharts}}</td>
+				<td class="center">{{user.inCompleteCharts}}</td>
+				<td class="center">{{user.miscCharts}}</td>
+				<td class="center">{{user.totalCharts}}</td>
+			</tr>
+			</tbody>
+
+		</table>
+
+			<div id="pagination-mu-div-id" class="pagination pagination-right">
+				<pagination total-items="bigTotalItems" page="bigCurrentPage" max-size="maxSize" items-per-page="itemsPerPage" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-click="setPage()"></pagination>
+				
+				 <!--pre>Page: {{bigCurrentPage}} / {{numPages}}</pre-->
+			</div>
+
+	  </div>
+
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->

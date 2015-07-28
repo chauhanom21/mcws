@@ -1,0 +1,85 @@
+<div class="row-fluid sortable" ng-init ="initializeUserDetails();">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-file"></i> My Tasks</h2>
+			<ul>
+				<li style="float:right; margin-right:110px; margin-top:4px; font-size:13px;">
+					<div ng-if="user.remWorkload"> Remaining Work Load </div>
+				</li>
+				<li style="float:right; margin-right:-263px; margin-top:3px; font-size:13px;">
+					<div ng-if="user.remWorkload" class="rectangle" >{{user.remWorkload}} EM </div>
+				</li>
+		    </ul>
+		</div>
+		<div id="mytask-table-content" class="box-content">
+			<div class="pagination pagination-right">
+				<button ng-show="enableCoderFetch" ng-click="fetchMyTask(true)" ng-disabled="!enableFetch" type="submit" class="btn btn-primary">Fetch Coder Task</button>
+				<button ng-show="fetchUserRole()=='qa'" ng-click="fetchMyTask(false)" ng-disabled="!enableFetch" type="submit" class="btn btn-primary">Fetch QA Task</button>
+			</div>
+					 
+			<table id="mytask-table"  class="table table-striped table-bordered">
+				<thead>
+				   <tr>
+						<th id="acc-id"><a>Account/MR No</a></th>
+						<!-- <th id="mr-id"><a>	MR No</a></th> -->
+						<th id="client"><a>Client</a></th>
+						<th id="chart-type"><a>Chart Type</a></th>
+						<th id="chart-spl"><a>Specialization </a></th>
+						<th id="tat"><a>TAT</a></th>
+						<th id="los"><a>LOS</a></th>
+						<th id="em"><a>EM</a></th>
+						<th id="dis-date"><a>Discharge Date</a></th>
+						<th id="previousStatus"><a>Previous Status</a>	</th>
+						<th id="status"><a>Current Status </a></th>
+						<th id="taskAssingedTime"><a>Assigned Time</a>	</th>
+						<th id="codedBy"><a>Coder/QA</a>	</th>
+						<th id="action">Action</th>
+				  	</tr>
+				</thead>
+	
+				<tbody>
+					<tr ng-repeat="task in  pagedItems[currentPage] | orderBy:predicate:reverse">
+						<td class="center"> {{task.accountNumber}}  {{task.mrNumber}}</td>
+						<!-- <td class="center"> {{task.mrNumber}} </td> -->
+						<td class="center"> {{task.client}} </td>
+						<td class="center"> {{task.chartType}} </td>
+						<td class="center"> {{task.specilization}} </td>
+						<td class="center"> {{task.tat}} </td>
+						<td class="center"> {{task.los}} </td>	
+						<td class="center"> {{task.em}} </td>			
+						<td class="center"> {{task.dischargeDate}} </td>
+						<td class="center"> {{task.previousStatus}} </td>	
+						<td class="center"> {{task.status}} </td>
+						<td class="center"> {{task.taskAssignedTime}} </td>
+						<td class="center"> {{task.coderName}} </td><!-- {{task.userRole}}-  updated to bug #93-->
+						<td class="center" style="white-space: nowrap">
+							<div class="buttons" ng-show="!rowform.$visible">
+								<button id="task-edit-row-button" class="btn btn-info" ng-click="getTaskDetails(task.id, task.chartType)"><i class="icon-edit icon-white"></i>Create/Edit</button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+	
+			</table>
+			
+			<div id="pagination-mu-div-id" class="pagination pagination-right">
+				<pagination total-items="bigTotalItems" page="bigCurrentPage" max-size="maxSize" class="pagination-sm" items-per-page="itemsPerPage" boundary-links="true" rotate="false" num-pages="numPages" ng-click="setPage()"></pagination>
+<!-- 				 <pre>Page: {{bigCurrentPage}} / {{numPages}}</pre> -->
+			</div>
+			
+		</div><!-- box-content -->
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->
+
+<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3>Message</h3>
+        </div>
+        <div class="modal-body">
+            <b>{{ msg }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <!--button class="btn btn-warning" ng-click="cancel()">Cancel</button-->
+        </div>
+</script>

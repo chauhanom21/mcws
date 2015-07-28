@@ -1,0 +1,11 @@
+<project name="adi-billing-assembly" basedir="." default="copy">
+
+	<target name="init">
+									
+	</target>
+
+	<target name="copy" depends="init">
+		<copy file="./target/mcws-server.war" tofile="/apache-tomcat-7.0.55/webapps/mcws-server.war" overwrite="true"/>
+	</target>
+	
+</project>

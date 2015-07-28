@@ -1,0 +1,35 @@
+<div class="row-fluid sortable" ng-init ="initializeDateValues();">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-user"></i> Invoice Report </h2>
+		</div>
+		<div class="box-content">
+			<form name="invoice_report" class="form-horizontal" ng-submit="getInvoiceReportByClientAndDate();">
+				<!-- Form Name -->
+				<legend>Invoice Report</legend>
+				<div class="control-group">
+					<select class="select-style-box"  ng-options = "c.id as c.name for c in clients" 
+					ng-model = "queryClient"  ng-required="true">
+						<option value="">-- Select Client --</option>
+					</select>
+			    </div>
+			    <div class="control-group">
+			    	<div class="inline" style="margin-left:7px;">
+						<p>From : <input type="text"  ng-model="startDate" placeholder="This date" id="fromdatetime" style="width:101px;"  ng-required="true"></p>
+					</div>
+					<div class="inline"  style="margin-left:7px;">
+						<p>To : <input type="text"  ng-model="endDate" placeholder="This date" id="todatetime" style="width:101px;"  ng-required="true"></p>
+					</div>
+			    </div>
+			    <div id="dateError" class="ui-error-message">
+			    		From Date should be less than To Date!
+			 	</div>
+			    <div class='control-group'>
+			    	<button type="submit" class="btn btn-primary" ng-disabled="disable_submit">Download</button>
+			    </div>
+			</form>
+		</div> 
+	</div>
+	
+	
+</div>

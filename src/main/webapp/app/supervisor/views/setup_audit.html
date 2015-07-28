@@ -1,0 +1,53 @@
+<div>
+	<ul class="breadcrumb">
+        <li>
+			<a href="#{{$location.path()}}">Home {{$location.path()}} </a> 
+		</li>
+    </ul>
+</div>
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-user"></i> Audit Setup </h2>
+		</div>
+	  <div class="box-content">
+		<form name="createaudit" class="form-horizontal">
+			<legend> Auditing Setup Form</legend>
+			
+			<div style="margin-top: 10px;">
+    			<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)" ng-show="showAlert">{{alert.message}}
+    			</alert>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="textinput">Title</label>
+			  	<div class="controls">
+				    <input id="title" name="title" type="text" placeholder="Audit Title" class="input-xlarge" ng-model="title" ng-required="true" />
+			  	</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="textinput">From:</label>
+				<div class="controls">
+					<input type="text"  ng-model="fromdatetime" placeholder="From date" id="fromdatetime" style="width:101px;" ng-required="true"/>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="textinput">To:</label>
+				<div class="controls">
+					<input type="text"  ng-model="todatetime" placeholder="To date" id="todatetime" style="width:101px;" ng-required="true"/>
+				</div>
+			</div>
+		    
+		    <!-- Button -->
+			<div class="control-group">
+			  	<div class="controls">
+			    	<button id="singlebutton" name="singlebutton" ng-click="createAudit();"  ng-disabled="createaudit.title.$invalid" class="btn btn-primary">Submit</button>
+			  	</div>
+			</div>
+		</form>
+		
+
+	  </div><!-- box-content -->
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+    
+  <!--  <diskStore path="/mcws/ehcache/data"/> -->
+  
+   <diskStore path="java.io.tmpdir/ehcache"/>
+   
+  <defaultCache
+	maxElementsInMemory="1000"
+	eternal="false"
+	timeToIdleSeconds="600"
+	timeToLiveSeconds="600"
+	overflowToDisk="true"
+	/>
+    
+   <cache name="chartSpl" eternal="true" maxElementsInMemory="150" overflowToDisk="false" />
+    
+	<cache
+	name="users.query.cache"
+	maxElementsInMemory="10000"
+	eternal="false"
+	timeToIdleSeconds="600"
+	timeToLiveSeconds="900"
+	overflowToDisk="true"
+	/>
+	
+	<cache
+	name="charts.query.cache"
+	maxElementsInMemory="1000"
+	eternal="false"
+	timeToIdleSeconds="300"
+	timeToLiveSeconds="600"
+	overflowToDisk="true"
+	/>
+	
+	<cache
+	name="clients.query.cache"
+	maxElementsInMemory="1000"
+	eternal="false"
+	timeToIdleSeconds="300"
+	timeToLiveSeconds="600"
+	overflowToDisk="true"
+	/>
+	
+	<cache
+	name="worklist.query.cache"
+	maxElementsInMemory="10000"
+	eternal="false"
+	timeToIdleSeconds="600"
+	timeToLiveSeconds="900"
+	overflowToDisk="true"
+	/>
+	
+	<cache
+	name="review.worklist.query.cache"
+	maxElementsInMemory="10000"
+	eternal="false"
+	timeToIdleSeconds="600"
+	timeToLiveSeconds="900"
+	overflowToDisk="true"
+	/>
+	
+	<cache
+	name="weightage.query.cache"
+	maxElementsInMemory="10000"
+	eternal="false"
+	timeToIdleSeconds="600"
+	timeToLiveSeconds="900"
+	overflowToDisk="true"
+	/>
+	
+ 
+</ehcache>

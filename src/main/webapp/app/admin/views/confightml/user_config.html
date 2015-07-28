@@ -1,0 +1,163 @@
+<div ng-init = "loadAllUser();">
+	<ul class="breadcrumb">
+		<li><a href="#{{$location.path()}}">Home {{$location.path()}}
+		</a></li>
+
+	</ul>
+</div>
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2>
+				<i class="icon-file"></i> Save/Update User
+			</h2>
+		</div>
+		<!-- Content Start -->
+		
+		<form name="addUser" class="form-horizontal" ng-submit="saveOrUpdateUserDetails();">
+			<fieldset>
+			<!-- Form Name -->
+			<legend> User configuration form </legend>
+			<div class="control-group">
+			  <label class="control-label" for="users">Select User:</label>
+			  <div class="controls">
+			    <select class="input-xlarge" ng-options ="user.userId as user.username for user in userslist"
+			    	ng-model = "userSelected" ng-change = "getUserDetails();">
+			      <option value="">-- Add New User --</option>
+				</select>
+			  </div>
+			</div>
+			<!-- Text input-->
+			<div class="control-group">
+			  <label class="control-label" for="firstname">First Name:</label>
+			  <div class="controls">
+			    <input id="firstname" name="firstname" type="text" placeholder="firstname" class="input-xlarge" ng-model="userDetails.firstname" ng-required="true" />
+			  </div>
+			</div>
+			
+			<!-- Text input-->
+			<div class="control-group">
+			  <label class="control-label" for="lastname">Last Name:</label>
+			  <div class="controls">
+			    <input id="lastname" name="lastname" type="text" placeholder="lastname" class="input-xlarge" ng-model="userDetails.lastname" required />
+			  </div>
+			</div>
+			
+			<!-- Text input-->
+			<div class="control-group">
+			  <label class="control-label" for="username">User Name:</label>
+			  <div class="controls">
+			    <input id="username" name="username" type="text" placeholder="username" class="input-xlarge" ng-model="userDetails.username" required>
+			  </div>
+			</div>
+			<!-- Text input-->
+			<div class="control-group">
+			  <label class="control-label" for="password">Password:</label>
+			  <div class="controls">
+			    <input id="password" name="password" type="password" placeholder="password" class="input-xlarge" ng-model="userDetails.password" required>
+			  </div>
+			</div>
+			<!-- Multiple Radios -->
+			<div class="control-group">
+			  <label class="control-label" for="gender">Gender:</label>
+			  <div class="controls">
+			    <label class="radio" for="male">
+			      <input type="radio" name="male" id="male" value="M" ng-model="userDetails.gender">
+			      Male
+			    </label>
+			    <label class="radio" for="female">
+			      <input type="radio" name="female" id="female" value="F" ng-model="userDetails.gender">
+			      Female
+			    </label>
+			  </div>
+			</div>
+			
+			<div class="control-group">
+			  <label class="control-label" for="Gender">Location:</label>
+			  <div class="controls">
+			    <select id="selectbasic" name="selectbasic" class="input-xlarge" ng-model="userDetails.location" required>
+			      <option value="">-- Select --</option>
+			      <option value="Hyderabad">Hyderabad</option>
+			      <option value="Karim Nagar">Karim Nagar</option>
+			      <option value="Banglor">Banglor</option>
+			    </select>
+			  </div>
+			</div>
+			<div class="control-group">
+			  <label class="control-label" for="joblevel">Job Level:</label>
+			  <div class="controls">
+			    <select id="joblevel" name="joblevel" class="input-xlarge" ng-model="userDetails.jobLevel" required>
+			    	<option value="">-- Select --</option>
+			      	<option value="High">High</option>
+			      	<option value="Medium">Medium</option>
+			      	<option value="Low">Low</option>
+			    </select>
+			  </div>
+			</div>
+			<div class="control-group">
+  				<label class="control-label" for="new coder">Role:</label>
+		  		<div class="controls">
+			    	<label class="checkbox inline" for="checkboxes-1">
+				      <input type="checkbox" name="coder" id="coder" value="1" ng-model="userDetails.coder" ng-change="validateUserRole();">
+				      Coder
+				    </label>
+				    <label class="checkbox inline" for="checkboxes-1">
+				      <input type="checkbox" name="localqa" id="localqa" value="1" ng-model="userDetails.localQA" ng-change="validateUserRole();">
+				      Local QA
+				    </label>
+				    <label class="checkbox inline" for="checkboxes-1">
+				      <input type="checkbox" name="remoteqa" id="remoteqa" value="1" ng-model="userDetails.remoteQA" ng-change="validateUserRole();">
+				      Remote QA
+				    </label>
+		    	</div>
+		    	<div class="controls">
+		    		<label class="checkbox inline" for="new coder">
+			    		IS New Coder
+			      		<input type="checkbox" name="newcoder" id="newcoder" value="1" ng-model="userDetails.newCoder" ng-change="validateUserRole();">
+			    	</label>
+			    </div>
+		    </div>
+			<div class="control-group">
+			  <label class="control-label" for="workload">Max Workload:</label>
+			  <div class="controls">
+			    <input id="firstname" name="workload" type="number" placeholder="workload" class="input-xlarge" ng-model="userDetails.maxWorkload" required />
+			  </div>
+			</div>
+			
+			<!-- Text input-->
+			<div class="control-group">
+			  <label class="control-label" for="employeeId">Employee Id:</label>
+			  <div class="controls">
+			    <input id="firstname" name="employeeId" type="text" placeholder="employee Id" class="input-xlarge" ng-model="userDetails.employeeId" ng-required="true" />
+			  </div>
+			</div>
+			
+			<!-- Button -->
+			<div class="control-group">
+				<div class="inline">
+					 <label class="control-label" for="singlebutton"></label>
+					 <div class="controls">
+					 <button  name="singlebutton" class="btn btn-primary">Save/Update</button>
+					 </div>
+				</div>
+				<div id="userClientConfigLink" class="usercondifg-inlineRight">
+					<b><a href="#user_client_charttype/{{userSelected}}" class="ad_title">Configure user's clients and chart types</a></b>
+				</div>
+			</div>
+			</fieldset>
+		</form>
+		<!-- Content End -->
+	</div>
+</div>
+<style>
+/* unvisited link */
+.ad_title {
+  display: block;
+  border: 0;
+  color: blue;
+  font-size: 1.4em;
+   text-shadow: none;
+}
+
+
+</style>

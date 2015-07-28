@@ -1,0 +1,52 @@
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-search"></i> Search </h2>
+		</div>
+		<div class="box-content">
+			<form class="well form-search" ng-submit="searchTaskDetail();">  
+			  <label class="control-label" style="width: 140px;"> Account/MR Number </label>
+			  <input type="text" class="input-large search-query" ng-model="searchQuery" placeholder="search" required="true">  
+			  
+			  <button type="submit" class="btn btn-primary" ng-disabled="disableSearch"> <i class="icon-search icon-white"></i></button>
+			</form>  
+		
+			<div ng-if="items.length > 0">
+				<table id="search-table" class="table table-striped table-bordered bootstrap-datatable datatable">
+					<thead>
+					  <tr>
+						<th id="accountNumber-id"> Account / MR No </th>
+						<th id="client"> Client </th>
+						<th id="chart-type"> Chart Type </th>
+						<th id="chart-type">Specialization </th>
+						<th id="tat"> TAT </th>
+						<th id="los"> LOS </th>
+						<th id="em"> EM </th> 
+						<th id="status"> Status </th>
+						<th id="receivedDate">	Received Date </th>
+						<th id="updateDate">Last Updated Date </th>
+						<th id="action">Action</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr ng-repeat="task in  items">
+						<td class="center">{{task.accountNumber}} {{task.mrNumber}}</td>
+						<td class="center">{{task.client}}</td>
+						<td class="center">{{task.chartType}}</td>
+						<td class="center">{{task.specilization}}</td>
+						<td class="center">{{task.tat}}</td>
+						<td class="center">{{task.los}}</td>
+						<td class="center">{{task.em}}</td>
+						<td class="center">{{task.status}}</td>
+						<td class="center">{{ task.receivedDate }}</td>
+						<td class="center">{{ task.updateDate }}</td>		
+						<td class="center">
+						   <button type="submit" class="btn btn-primary" ng-disabled="{{task.codingHistory.length}} < 1" ng-click="viewCodingChartHistory(task.codingHistory, task.chartType, task.status);"> View </button>
+						</td>		
+					  </tr>
+					</tbody>
+				</table>
+			</div>
+	  </div>
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->

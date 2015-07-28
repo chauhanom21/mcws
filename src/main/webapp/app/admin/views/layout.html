@@ -1,0 +1,80 @@
+<div>
+	<ul class="breadcrumb">
+		<li><a href="#{{$location.path()}}">Home {{$location.path()}}
+		</a></li>
+
+	</ul>
+</div>
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2>
+				<i class="icon-file"></i> File Upload
+			</h2>
+		</div>
+		<div>
+			<alert ng-repeat="alert in alerts" type="alert.type" ng-show="alerts"
+				close="closeAlert($index)" ng-show="showAlert">{{alert.msg}}</alert>
+		</div>
+		<div id="messages"></div>
+		<div class="box-content">
+			<div id="messages"></div>
+
+			<form ng-submit="uploadFile()" class="form-horizontal"
+				enctype="multipart/form-data">
+				<fieldset>
+
+					<!-- Form Name -->
+					<legend>WorkList Upload Form</legend>
+
+					<!-- Text input-->
+					<div class="control-group">
+						<!-- <label class="control-label" for="textinput">Client:</label>
+						<div class="controls">
+							<input id="textinput" ng-model="myClient" class="input-xlarge"
+								type="text" required="true">
+						</div> -->
+						<label class="control-label" for="dropdown">Client: </label>
+						<div class="controls">
+						<select class="select-style-box"  ng-options = "c.name as c.name for c in clientsList" 
+						ng-model = "myClient">
+							<option value="">-- Select Client --</option>
+						</select>
+					</div>
+					</div>
+					<!--  IsIncompleteList --><!-- <input type="checkbox" id="remember" />Remember me</label> -->
+					<div class="control-group">
+						<label class="control-label" for="checkbox">  Is IncompleteList </label>
+						<div class="controls">
+							<input type="checkbox" id="isIncompleteList" 
+								ng-model="isIncompleteList"/>
+						</div>
+					</div>
+
+					<!-- File Button -->
+					<div class="control-group">
+						<label class="control-label" for="filebutton">File Button</label>
+						<div class="controls">
+							<input name="file" class="input-file" type="file"
+								ng-model="document.fileInput" id="file">
+						</div>
+					</div>
+
+					<!-- Button -->
+					<div class="control-group">
+
+						<div class="controls">
+							<button class="btn btn-sm btn-primary" type="submit">Import</button>
+						</div>
+					</div>
+
+
+				</fieldset>
+			</form>
+
+		</div>
+		<!-- box-content -->
+	</div>
+	<!--/span-->
+</div>
+<!-- row-fluid sortable -->

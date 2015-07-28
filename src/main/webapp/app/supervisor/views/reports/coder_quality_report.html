@@ -1,0 +1,26 @@
+<div class="row-fluid sortable" ng-init = "initializeDateValues();">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-file"></i> Coder Quality Report </h2>
+		</div>
+	  	<div class="box-content">
+		  	<form class="form-horizontal" >
+				 <div class='input-group'>
+					<div class="inline" style="margin-left:7px;">
+						<p>From : <input type="text"  ng-model="startDate" placeholder="This date" id="fromdatetime" style="width:101px;"></p>
+					</div>
+					 
+					<div class="inline"  style="margin-left:7px;">
+						<p>To : <input type="text"  ng-model="endDate" placeholder="This date" id="todatetime" style="width:101px;"></p>
+					</div>
+				</div>
+				<div class='input-group'>
+					<button ng-click="loadCodersQualityReport('coder');"  type="submit" class="btn btn-primary" ng-disabled="disable_submit">Download</button>
+			   		<div id="ui-error-message" class="ui-error-message">
+	      				<p>From Date should be less than To Date!</p>
+	   				</div>
+			    </div>
+			</form>
+	  </div>
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->

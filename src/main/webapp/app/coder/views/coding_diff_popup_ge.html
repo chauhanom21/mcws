@@ -1,0 +1,184 @@
+<div class="modal-header">
+	<h3>View Chart Coding Details/Difference</h3>
+</div>
+<div class="modal-body">
+	<table id="chartHistoryTable" class="table table-bordered">
+		<thead>
+			<tr>
+				<th style="width: 200px;">Property</th>
+				<th style="width: 200px;" ng-repeat="chartHistory in msg">{{chartHistory.coderName}} ( {{chartHistory.userRole}} )</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="width: 200px; font-weight:bold;">Status</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					{{chartHistory.status}}</td>
+			</tr>
+			<tr>
+				<td style="width: 200px; font-weight:bold;">Comments</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					{{chartHistory.comments}}</td>
+			</tr>
+	
+			<tr>
+				<td style="width: 200px; font-weight:bold;">Insurance</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					{{chartHistory.insurance}}
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 200px; font-weight:bold;">Additional Info</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					<li ng-repeat="account in chartHistory.account">
+						{{account.value}}</li>
+				</td>
+			</tr>
+	
+			<tr>
+				<td style="width: 200px; font-weight:bold;">Admit Date</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					{{chartHistory.admit}}</td>
+			</tr>
+	
+			<tr>
+				<td style="width: 200px; font-weight:bold;">D/C</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					{{chartHistory.dc}}</td>
+			</tr>
+	
+			<tr>
+				<td style="width: 200px; font-weight:bold;">DOS</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					<li ng-repeat="dos in chartHistory.dos">{{dos.value}}</li>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 200px; font-weight:bold;">LOC</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					{{chartHistory.loc}}</td>
+			</tr>
+	
+			<tr>
+				<td style="width: 200px; font-weight:bold;">I/O</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					{{chartHistory.io}}</td>
+			</tr>
+	
+			<tr>
+				<td style="width: 200px; font-weight:bold;">MD</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					{{chartHistory.md}}</td>
+			</tr>
+	
+			<tr>
+				<td style="width: 200px; font-weight:bold;">Extender</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					{{chartHistory.extender}}</td>
+			</tr>
+			
+			<tr>
+				<td style="width: 200px; font-weight:bold;">Ref. MD</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					{{chartHistory.refmd}}</td>
+			</tr>
+			
+			<tr>
+				<td style="width: 200px; font-weight:bold;">MD CPT</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					{{chartHistory.mdCpt}}</td>
+			</tr>
+			
+			<tr>
+				<td style="width: 200px; font-weight:bold;">CPT</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					<li ng-repeat="icdg in chartHistory.geCptGroup">
+						<span ng-repeat="cpt in icdg.cpt">
+	        				{{cpt.value}}
+	    				<span/>
+					</li>
+				</td>
+			</tr>
+	
+			<tr>
+				<td style="width: 200px; font-weight:bold;">MOD</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					<li ng-repeat="icdg in chartHistory.geCptGroup">
+						<span ng-repeat="mod in icdg.mod">
+	        				{{mod.value}}
+	    				<span/>
+					</li>
+				</td>
+			</tr>
+	
+			<tr>
+				<td style="width: 200px; font-weight:bold;">DX</td>
+				<td style="width: 200px;" ng-repeat="chartHistory in msg">
+					<li ng-repeat="icdg in chartHistory.geCptGroup">
+						<span ng-repeat="dx in icdg.dx">
+	        				{{dx.value}}
+	    				<span/>
+					</li>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="ok()">OK</button>
+	<!--button class="btn btn-warning" ng-click="cancel()">Cancel</button-->
+</div>
+
+<style>
+*Generated from Designmycss.com*/
+table
+{
+    border-collapse:collapse;
+    border-style:solid;
+    border-width:1px;
+    border-color:#707070;
+    font:14px Georgia, serif;
+    padding:0px;
+    box-shadow:1px 1px 3px 1px #6E6D6D;
+}
+ 
+th
+{
+    color:#FFFFFF;
+    background:#DB2C2C;
+    background: -moz-linear-gradient(top,  #DB2C2C 0%, #571515 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#DB2C2C), color-stop(100%,#571515));
+    background: -webkit-linear-gradient(top,#DB2C2C 0%,#571515 100%);
+    background: -o-linear-gradient(top,#DB2C2C 0%,#571515 100%);
+    background: -ms-linear-gradient(top,#DB2C2C 0%,#571515 100%);
+    background: linear-gradient(top,#DB2C2C 0%,#571515 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DB2C2C',endColorstr='#571515',GradientType=0s);
+    font-weight:bold;
+    padding:5px;
+    text-align:center;
+    vertical-align:top;
+}
+ 
+tr
+{
+    color:#000000;
+    border-top-style: solid;
+    border-width:1px;
+    border-color:#707070;
+    font-weight:normal;
+}
+ 
+ 
+tr:nth-child(odd) td
+{
+background:#EBEBEB;
+}
+
+td
+{
+    background:#FFFFFF;
+    padding:3px 5px;
+    text-align:left;
+    vertical-align:top;
+}
+</style>

@@ -1,0 +1,432 @@
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-file"></i> Audit IP Chart</h2>
+			<ul>
+				<li style="float:right; margin-right:110px; margin-top:4px; font-size:13px;">
+					<div ng-if="user.remWorkload"> Remaining Work Load </div>
+				</li>
+				<li style="float:right; margin-right:-263px; margin-top:3px; font-size:13px;">
+					<div ng-if="user.remWorkload" class="rectangle" >{{user.remWorkload}} EM </div>
+				</li>
+		    </ul>
+		</div>
+		<div class="box-content">
+			<!-- Nav tabs -->
+          	<ul class="nav nav-tabs">
+          	  <li id="audit-tab" class="active"><a data-target="#audit-div" data-toggle="tab" accesskey="a">Audit</a></li>
+              <li id="coding-tab"><a data-target="#codingChart" data-toggle="tab" accesskey="c">Coding</a></li>
+              <li style="margin-top:10px; margin-left:50px;"><span>Task Details:<a ng-click="showTaskDetails();">show</a> <a ng-click="hideTaskDetails();">hide</a></span></li>
+              <li>
+				<div ng-if="showTimer" class="CSS_Table_Example" style="margin-left:650px; margin-top:-36px;"> 
+				<table>
+					<thead> 
+					<tr>
+						<th>Hours</th>
+						<th>Minutes</th>
+						<th>Seconds</th>
+					</tr>
+					</thead>
+					<tbody> 
+						<tr>
+							<td><timer start-time='startTime' interval="1000"> {{hhours}}  </timer></td>
+							<td><timer start-time='startTime' interval="1000"> {{mminutes}}  </timer></td>
+							<td><timer start-time='startTime' interval="1000"> {{sseconds}} </timer></td>
+						</tr>
+					</tbody>
+				</table>
+				  
+				</div>
+			  </li>
+          	</ul>
+          	
+          	<div class="tab-content">
+          		<div id="audit-div" class="tab-pane  active" >
+	             <form name="audit-form" class="form-horizontal" ng-submit="submitGradingSheet()">
+					<fieldset ng-show="dispalyTaskDetails" class="fieldsetClass">
+<!-- 						<legend>Task Details</legend> -->
+						<div class="fieldset-control-group">
+							<div class="inline">
+								<label class="control-label">Client Name</label> 
+								<div class="controls">
+									<input class="input-medium" type="text" name="clientName" value="{{chartDetail.client}}" disabled/>
+								</div>
+							</div>			
+							<div class="inline">
+								<label class="control-label">Chart Type</label>
+								<div class="controls">
+								  <input class="input-medium" type="text" name="chartType" value="{{chartDetail.chartType}}" disabled/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Chart Specialization</label>
+								<div class="controls">
+								  <input class="input-medium" type="text" name="specialization" value="{{chartDetail.specilization}}" disabled/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Account/MR Number</label>
+								<div class="controls">
+								  <input class="input-medium" type="text" name="account" value="{{chartDetail.accountNumber}} {{chartDetail.mrNumber}}" disabled/>
+								</div>
+							</div>						
+							<div class="inline">
+								<label class="control-label">TAT</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="tat" type="text" value="{{chartDetail.tat}}" disabled/>
+								</div>
+							</div>						
+							<div class="inline">
+								<label class="control-label">LOS</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="los" type="text" value="{{chartDetail.los}}" disabled/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">EM</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="em" type="text" value="{{chartDetail.em}}" disabled/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Discharge Date</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="dischargeDate" type="text" value="{{chartDetail.dischargeDate}}" readonly/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Patient Name</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="patientName" type="text" value="{{chartDetail.patientName}}" readonly/>
+								</div>
+							</div>															
+							<div class="inline">
+								<font color="red"><b><i><label class="control-label">Task Assigned Time</label></i></b></font>
+								<div class="controls">
+								  <font color="red"><b><input class="input-medium uneditable-input" name="taskAssignedTime" type="text" value="{{chartDetail.taskAssignedTime}}" disabled/></b></font>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<div class="clearBoth">
+						<div class="inline" style="margin-bottom: 14px;">
+						 	<label class="checkbox">
+		            			<input type="checkbox" name="drg" id="drg" ng-model="gradSheetData.drg" ng-change="displayGradingSheet(gradSheetData.drg)"> Wrong DRG
+		        			</label>
+						</div>
+				
+						<div ng-if="showColCodesError" id="showErrorMessage" class="ui-accuracy-codes-error-message">
+		      				<ul ng-repeat="error in columnErrors">
+		      					<li><p>Number of error should not greater than number of codes, for column  {{error.name}} !</p></li>
+		      				</ul>
+		   				</div>
+		   			
+						<table id="grading-table" class="table alttable clearBoth">
+							<thead>
+							  <tr>
+								<th>Column Name</th>
+								<th>Weightage Percentage</th>
+								<th>No of Codes</th>
+								<th>No of Errors</th>
+								<th>Error Percentage</th>
+							  </tr>
+							</thead> 	
+							<tbody>
+							  <tr>
+								<td>ADX</td>
+								<td><input class="input-small" id="adxWeight" name="adxWeight" type="text" value="{{weightage.adx}}" disabled /></td>
+								<td><input class="input-small" id="adxCode" name="adxCode" type="text" ng-model="colValCount.adx" disabled /></td>
+								<td><input class="input-small" id="adxError" name="adxError" type="text" valid-number ng-model="gradSheet.adxError"
+								 ng-keyup="calColumnAccuracy(weightage.adx, colValCount.adx, gradSheet.adxError, 'adx')"  ng-required="showRequired" /></td>
+								<td><input class="input-small" id="adxAccuracy" name="adxAccuracy" type="text" valid-number
+								 ng-model="gradSheet.adxAccuracy" required disabled/></td>
+							  </tr>
+							  <tr>
+								<td>PDX</td>
+								<td><input class="input-small" id="pdxWeight" name="pdxWeight" type="text" value="{{weightage.pdx}}" disabled /></td>
+								<td><input class="input-small" id="pdxCode" name="pdxCode" type="text" ng-model="colValCount.pdx" disabled /></td>
+								<td><input class="input-small" id="pdxError" name="pdxError" type="text" valid-number ng-model="gradSheet.pdxError"
+								  ng-keyup="calColumnAccuracy(weightage.pdx, colValCount.pdx, gradSheet.pdxError, 'pdx')" ng-required="showRequired" /></td>
+								<td><input class="input-small" id="pdxAccuracy" name="pdxAccuracy" type="text" valid-number
+								 ng-model="gradSheet.pdxAccuracy" ng-required="showRequired" disabled /></td>
+							  </tr>
+							  <tr>
+								<td>SDX</td>
+								<td><input class="input-small" id="sdxWeight" name="sdxWeight" type="text" value="{{weightage.sdx}}" disabled /></td>
+								<td><input class="input-small" id="sdxCode" name="sdxCode" type="text" ng-model="colValCount.sdx" disabled /></td>
+								<td><input class="input-small" id="sdxError" name="sdxError" type="text" valid-number ng-model="gradSheet.sdxError"
+								 ng-keyup="calColumnAccuracy(weightage.sdx, colValCount.sdx, gradSheet.sdxError, 'sdx')" ng-required="showRequired" /></td>
+								<td><input class="input-small" id="sdxAccuracy" name="sdxAccuracy" type="text" valid-number
+								 ng-model="gradSheet.sdxAccuracy" ng-required="showRequired" disabled/></td>
+							  </tr>
+							  <tr>
+								<td>ICD-|||</td>
+								<td><input class="input-small" id="icdWeight" name="icdWeight" type="text" value="{{weightage.icd}}" disabled /></td>
+								<td><input class="input-small" id="icdCode" name="icdCode" type="text" ng-model="colValCount.icd" disabled /></td>
+								<td><input class="input-small" id="icdError" name="icdError" type="text" valid-number ng-model="gradSheet.icdError"
+								 ng-keyup="calColumnAccuracy(weightage.icd, colValCount.icd, gradSheet.icdError, 'icd')" ng-required="showRequired" /></td>
+								<td><input class="input-small" id="icdAccuracy" name="icdAccuracy" type="text" valid-number
+								 ng-model="gradSheet.icdAccuracy" ng-required="showRequired" disabled/></td>
+							  </tr>
+							  <tr>
+								<td>DISP</td>
+								<td><input class="input-small" id="dispWeight" name="dispoWeight" type="text" value="{{weightage.disp}}" disabled /></td>
+								<td><input class="input-small" id="dispCode" name="dispCode" type="text" ng-model="colValCount.disp" disabled /></td>
+								<td><input class="input-small" id="dispError" name="dispoError" type="text" valid-number ng-model="gradSheet.dispError"
+								 ng-keyup="calColumnAccuracy(weightage.disp, colValCount.disp, gradSheet.dispError, 'disp')" ng-required="showRequired" /></td>
+								<td><input class="input-small" id="dispAccuracy" name="dispAccuracy" type="text" valid-number
+								 ng-model="gradSheet.dispAccuracy" ng-required="showRequired" disabled/></td>
+							  </tr>
+							  <tr>
+								<td>DOS</td>
+								<td><input class="input-small" id="dosWeight" name="dosWeight" type="text" value="{{weightage.dos}}" disabled /></td>
+								<td><input class="input-small" id="dosCode" name="dosCode" type="text" ng-model="colValCount.dos" disabled /></td>
+								<td><input class="input-small" id="dosError" name="dosError" type="text" valid-number ng-model="gradSheet.dosError"
+								 ng-keyup="calColumnAccuracy(weightage.dos, colValCount.dos, gradSheet.dosError, 'dos')" ng-required="showRequired" /></td>
+								<td><input class="input-small" id="dosAccuracy" name="dosAccuracy" type="text" valid-number ng-model="gradSheet.dosAccuracy" ng-required="showRequired" disabled /></td>
+							  </tr>
+							  <tr>
+								<td>POA</td>
+								<td><input class="input-small" id="poaWeight" name="poaWeight" type="text" value="{{weightage.poa}}" disabled /></td>
+								<td><input class="input-small" id="poaCode" name="poaCode" type="text" ng-model="colValCount.poa" disabled /></td>
+								<td><input class="input-small" id="poaError" name="poaError" type="text" valid-number ng-model="gradSheet.poaError"
+								 ng-keyup="calColumnAccuracy(weightage.poa, colValCount.poa, gradSheet.poaError, 'poa')" ng-required="showRequired" /></td>
+								<td><input class="input-small" id="poaAccuracy" name="poaAccuracy" type="text" valid-number ng-model="gradSheet.poaAccuracy" ng-required="showRequired" disabled /></td>
+							  </tr>
+							  <tr>
+								<td>Physician ID</td>
+								<td><input class="input-small" id="physicianWeight" name="physicianWeight" type="text" value="{{weightage.physician}}" disabled /></td>
+								<td><input class="input-small" id="physicianCode" name="physicianCode" type="text" ng-model="colValCount.phy" disabled /></td>
+								<td><input class="input-small" id="physicianError" name="physicianError" type="text" valid-number ng-model="gradSheet.physicianError"
+								 ng-keyup="calColumnAccuracy(weightage.physician, colValCount.phy, gradSheet.physicianError, 'physician')" ng-required="showRequired" /></td>
+								<td><input class="input-small" id="physicianAccuracy" name="physicianAccuracy" type="text" valid-number ng-model="gradSheet.physicianAccuracy" ng-required="showRequired" disabled/></td>
+							  </tr>
+							 
+							  <tr class="ui-accuracy-message">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td style="font-size:16px;">Accuracy</td>
+								<td><input class="input-small" id="accuracy" name="accuracy" type="text" valid-number ng-model="totalAccuracy" ng-required="showRequired" disabled/></td>
+							  </tr>
+					  		</tbody>
+						</table>
+				    </div>
+					<div id="accuracyError" class="ui-error-message">
+		      			<p>Accuracy should not be less than zero, Change the grading sheet data to get currect Accuracy!</p>
+		   			</div>
+		   			
+					<div id="accuracy-div" class="inline">
+						<div class="inline-bottom">
+							<label class="control-label">Accuracy</label>
+							<div class="controls">
+					  			<input class="input-small" id="accuracy" name="accuracy" type="text" valid-number value="0.0" ng-required="showRequired" disabled/>
+							</div>
+						</div>						
+					</div>
+						
+					<div class="form-actions clearBoth">
+						<button type="submit" ng-disabled="disableAuditForm" class="btn btn-large btn-primary" style="margin-left:365px;">Submit</button>
+						<button type="button" ng-click="CancelAudit()" class="btn btn-large btn-default">Cancel</button>
+					</div>
+				</form>
+              </div><!-- audit Div -->
+          	  <div class="tab-pane" id="codingChart">
+          	       <form name="codingForm" class="form-horizontal" ng-submit="submit()">
+					<fieldset ng-show="dispalyTaskDetails" class="fieldsetClass">
+<!-- 						<legend>Task Details</legend> -->
+						<div class="fieldset-control-group">
+							<div class="inline">
+								<label class="control-label">Client Name</label> 
+								<div class="controls">
+									<input class="input-medium" type="text" name="clientName" value="{{chartDetail.client}}" disabled/>
+								</div>
+							</div>			
+							<div class="inline">
+								<label class="control-label">Chart Type</label>
+								<div class="controls">
+								  <input class="input-medium" type="text" name="chartType" value="{{chartDetail.chartType}}" disabled/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Chart Specialization</label>
+								<div class="controls">
+								  <input class="input-medium" type="text" name="specialization" value="{{chartDetail.specilization}}" disabled/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Account/MR Number</label>
+								<div class="controls">
+								  <input class="input-medium" type="text" name="account" value="{{chartDetail.accountNumber}} {{chartDetail.mrNumber}}" disabled/>
+								</div>
+							</div>						
+							<div class="inline">
+								<label class="control-label">TAT</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="tat" type="text" value="{{chartDetail.tat}}" disabled/>
+								</div>
+							</div>						
+							<div class="inline">
+								<label class="control-label">LOS</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="los" type="text" value="{{chartDetail.los}}" disabled/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">EM</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="em" type="text" value="{{chartDetail.em}}" disabled/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Discharge Date</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="dischargeDate" type="text" value="{{chartDetail.dischargeDate}}" readonly/>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Patient Name</label>
+								<div class="controls">
+								  <input class="input-medium uneditable-input" name="patientName" type="text" value="{{chartDetail.patientName}}" readonly/>
+								</div>
+							</div>															
+							<div class="inline">
+								<font color="red"><b><i><label class="control-label">Task Assigned Time</label></i></b></font>
+								<div class="controls">
+								  <font color="red"><b><input class="input-medium uneditable-input" name="taskAssignedTime" type="text" value="{{chartDetail.taskAssignedTime}}" disabled/></b></font>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<fieldset  style="margin-top:10px; height:350px;overflow:auto;">
+						<div class="control-group" id="insuranceBox">
+							<div class="inline">
+								<label class="control-label">Insurance</label>
+								<div class="controls">
+									<select class="select-style-box" ng-model="ipChart.insurance" ng-options = "c.value as c.name for c in insuranceOptions"  
+									 ng-change="displayInsuranceBox();" disabled  >
+										<option value="">--Select--</option>
+									</select>
+								</div>
+								<!-- Checkboxes (inline) -->
+								<div ng-if="insuranceOtherReq" class="control-group">
+							  		<div class="controls" >
+							  			<input class="input-medium focused" id="insuranceOther" name="insuranceOther" type="text" ng-model="ipChart.insuranceOther" disabled/>
+							  		</div>	
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label" style="width:142px;">DRG</label>
+								<div class="controls" id="drg" style="margin-left:162px;">
+									<input class="input-medium focused" id="drg" name="drg" type="text" ng-model="ipChart.drg" valid-number disabled  />
+								</div>
+								<div class="controls error" ng-if="codingForm.drg.$dirty && codingForm.drg.$error.required"><font color="red"> Invalid Entry, Insert Only Numbers.</font></div>
+							</div>
+							<div class="inline">
+								<label class="control-label">DISP</label>
+								<div class="controls" id="disp">
+									<input class="input-medium focused" id="disp" name="disp" type="text" ng-model="ipChart.disp" disabled  />
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="inline">
+								<label class="control-label">ADX</label>
+								<div class="controls">
+									<input class="input-medium focused" id="adx" name="adx" type="text" ng-model="ipChart.adx" disabled  />
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">PDX</label>
+								<div class="controls" id="Pdx">
+									<input class="input-medium focused" id="pdx" name="pdx" type="text" ng-model="ipChart.pdx" disabled  />
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">POA</label>
+								<div class="controls" id="Pdx-POA">
+									<input class="input-medium focused" id="poa" name="poa" type="text" ng-model="ipChart.pdxpoa" disabled  />
+								</div>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="inline" id="SdxPOABoxGroup">
+							  <table style="text-align:left; margin-left:159px;" class="codingtable">
+								<thead>
+								  <tr>
+									<th>SDX</th>
+									<th>POA</th>
+									<th></th>
+								  </tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="sdxg in ipChart.sdxpoaGroup">
+										<td ng-repeat="sdx in sdxg.sdx">
+											<input class="mcws-input-small focused" id="sdx" name="sdx" type="text" ng-model="sdx.value" disabled  />
+										</td>
+										<td ng-repeat="poa in sdxg.sdx_poa">
+											<input class="mcws-input-small focused" id="sdx_poa" name="sdx_poa" type="text" ng-model="poa.value" disabled  />
+										</td>
+									</tr>
+								</tbody>
+							  </table>
+							</div>
+						  	<div class="inline" id="icdBoxGroup">
+							  <table style="text-align:left; margin-left:93px;" class="codingtable">
+								<thead>
+								  <tr>
+									<th>ICD-|||</th>
+									<th>DOS</th>
+									<th>Physician ID</th>
+									<th></th>
+								  </tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="icdg in ipChart.ipIcdGroup">
+										<td ng-repeat="icd in icdg.icd">
+											<input class="mcws-input-small focused" id="icd" name="icd" ng-model="icd.value" type="text" disabled  />
+										</td>
+										<td ng-repeat="dos in icdg.dos">
+											<input class="mcws-input-small focused" id="dos" name="dos" ng-model="dos.value" type="text" disabled  />
+										</td>
+										<td ng-repeat="phy in icdg.phy">
+											<input class="mcws-input-small focused" id="phy" name="phy" ng-model="phy.value" type="text" disabled  />
+										</td>
+									</tr>
+								</tbody>
+							  </table>
+						   </div>
+					    </div>
+						<div class="control-group">
+							<div class="inline">
+								<label class="control-label">Comments</label>
+								<div class="controls">
+									<textarea id="comment" name="comment" class="focused form-control" rows="3" style="width: 348px;" 
+									ng-model="ipChart.comments" disabled  ></textarea>
+								</div>
+							</div>
+						</div>	
+						<div class="control-group">
+							<div class="inline">
+								<label class="control-label">Additional Information</label>
+								<div class="controls">
+									 <li ng-repeat="account in ipChart.account">
+									 	<input class="input-medium focused" id="account" name="account" type="text" ng-model="account.value" disabled/>
+									 </li>					 
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<fieldset>
+						<div class="form-actions">
+							<button id="submit_button" type="submit" class="btn btn-primary" >Submit</button>
+							<button id="save_button" type="button" class="btn btn-success" ng-click="saveCodingForm()">Save</button>
+							<button id="cancel_button" type="button" ng-click="Cancel()" class="btn btn-default">Cancel</button>
+						</div>
+				  </fieldset>
+			  	  </form>
+          	  </div><!-- codingChart div -->
+          	</div><!-- tab-content Div -->
+		</div><!-- box-content -->
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->

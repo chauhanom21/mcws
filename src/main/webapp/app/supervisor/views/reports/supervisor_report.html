@@ -1,0 +1,177 @@
+<div ng-init="initializeDateValues();">
+	<ul class="breadcrumb">
+        <li>
+			<a href="#{{$location.path()}}">Home {{$location.path()}} </a> 
+		</li>
+    </ul>
+</div>
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-user"></i> Reports </h2>
+		</div>
+	  <div class="box-content">
+		<form class="form-search">
+			<div class='input-group inline'>
+				<div class="input-append">
+					<select class="select-style-box"  ng-options = "c.name as c.name for c in clients" 
+					ng-model = "queryClient" ng-change = "search();" >
+						<option value="">-- Filter By Client --</option>
+					</select>
+				</div>
+				<div class="input-append">
+					<select class="select-style-box"  ng-options = "cs.text as cs.text for cs in chartTypes" 
+					ng-model = "queryChartType"  ng-change = "search();" style="width: 175px;">
+						<option value="">-- Filter By chartType --</option>
+					</select>
+				</div>
+				<button ng-click="queryClient=''; queryChartType=''; search()" ng-disabled="!queryClient && !queryChartType " type="submit" class="btn">Reset</button>
+			</div>
+			 <div class='input-group inlineRight'>
+				<div class="inline" style="margin-left:7px;">
+					<p>From : <input type="text"  ng-model="startDate" placeholder="This date" id="fromdatetime" style="width:101px;"></p>
+				</div>
+				 
+				<div class="inline"  style="margin-left:7px;">
+					<p>To : <input type="text"  ng-model="endDate" placeholder="This date" id="todatetime" style="width:101px;"></p>
+				</div>
+				<button ng-click="loadAllSupervisorReportsData();"  type="submit" class="btn btn-success">Submit</button>
+		   		<div id="dateError" class="ui-error-message">
+      				<p>From Date should be less than To Date!</p>
+   				</div>
+		    </div>
+		    
+		</form>
+		
+		<table id="monitor-users-table" class="sReporttable">
+			<thead>
+			   <tr>
+				<th id="clientName">
+					Client
+			    </th>
+			    
+				<th id="chartType">
+					ChartType
+				</th>
+				<th id="completed">
+					Completed
+				</th>
+				<th id="incomplete">
+					InComplete
+				</th>
+				<th id="misc">
+					MISC
+				</th>
+				<th id="CoderAssigned">
+					Coder Assigned
+				</th>
+				<th id="LocalQAAssigned">
+					LocalQA Assigned
+				</th>
+				<th id="GlobalQAAssigned">
+					GlobalQA Assigned
+				</th>
+				<th id="CodingInProgress">
+					Coding InProgress
+				</th>
+				<th id="LocalQAInProgress">
+					LocalQA InProgress
+				</th>
+				<th id="GlobalQAInProgress">
+					GlobalQA InProgress
+				</th>
+				<th id="LocalCNR">
+					Local CNR
+				</th>
+				<th id="GlobalCNR">
+					Global CNR
+				</th>
+				<th id="LocalAudit">
+					Local Audit
+				</th>
+				<th id="LocalAudit">
+					Global Audit
+				</th>
+				<th id="Audited">
+					Audited
+				</th>
+				<th id="open">
+					Not Started
+				</th>
+				<th id="total-charts">
+					Total Charts
+				</th>
+			  </tr>
+			</thead>
+
+			<tbody>
+			<tr ng-repeat="report in  pagedItems[currentPage] | orderBy:predicate:reverse">
+				<td class="center">{{report.client}}</td>
+				<td class="center">{{report.chartType}}</td>
+				<td class="center">{{report.completed}}</td>
+				<td class="center">{{report.inComplete}}</td>
+				<td class="center">{{report.misc}}</td>
+				<td class="center">{{report.CoderAssigned}}</td>
+				<td class="center">{{report.LocalQAAssigned}}</td>
+				<td class="center">{{report.GlobalQAAssigned}}</td>
+				<td class="center">{{report.CodingInProgress}}</td>
+				<td class="center">{{report.LocalQAInProgress}}</td>
+				<td class="center">{{report.GlobalQAInProgress}}</td>
+				<td class="center">{{report.LocalCNR}}</td>
+				<td class="center">{{report.GlobalCNR}}</td>
+				<td class="center">{{report.LocalAudit}}</td>
+				<td class="center">{{report.GlobalAudit}}</td>
+				<td class="center">{{report.Audited}}</td>
+				<td class="center">{{report.open}}</td>
+				<td class="center"><b>{{report.count}}</b></td>
+			</tr>
+			</tbody>
+		</table>
+		
+		<div>
+		
+		<!-- download -->
+		<div class="inline" style="margin: 18px 0;">
+		    <div class="btn-group">
+		    	<button class="btn btn-default btn-lg dropdown-toggle download" type="button" ng-click="downloadReport('xls')">
+			    	Download Report
+			  	</button>
+<!-- 			  <button class="btn btn-default btn-lg dropdown-toggle download" type="button" ng-click="downloadReport('xls')">
+			    Download Report <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu" role="menu"> 
+			      <li><a href="javascript:void(0)" ng-click="downloadReport('pdf')">PDF</a></li>
+			      <li><a href="javascript:void(0)" ng-click="downloadReport('xls')">EXCEL</a></li>
+				  </ul> -->
+		    </div>
+		</div>
+	
+		<div id="pagination-mu-div-id" class="pagination pagination-right" style="float: left;width:865px;">
+			<pagination total-items="bigTotalItems" page="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-click="setPage()"></pagination>
+			 <!--pre>Page: {{bigCurrentPage}} / {{numPages}}</pre-->
+		</div>
+		</div>
+	  </div>
+
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->
+
+<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header header-style">
+            Warning!
+        </div>
+        <div class="modal-body fontStyle">
+            <b>{{ msg }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <!--button class="btn btn-warning" ng-click="cancel()">Cancel</button-->
+        </div>
+</script>
+
+<style>
+$(document).ready(function() {
+    $('#fromdatetime').attr("placeholder", "This date").datepicker();
+});
+
+</style>

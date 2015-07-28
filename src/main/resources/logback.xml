@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="DEBUG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${catalina.base}/logs/mcws_debug.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${catalina.base}/logs/mcws_debug.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 50MB -->
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- keep 5 days' worth of history -->
+			<maxHistory>5</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d [%thread] %-5level %logger{36} %L - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="INFO"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        
+		<file>${catalina.base}/logs/mcws_info.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${catalina.base}/logs/mcws_info.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 50MB -->
+				<maxFileSize>5MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- keep 5 days' worth of history -->
+			<maxHistory>5</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d [%thread] %-5level %logger{36} %L - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="ERROR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        
+		<file>${catalina.base}/logs/mcws_error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${catalina.base}/logs/mcws_error.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 50MB -->
+				<maxFileSize>5MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- keep 5 days' worth of history -->
+			<maxHistory>5</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d [%thread] %-5level %logger{36} %L - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+
+	<logger name="com.eclat.mcws">
+		<level value="DEBUG" />
+	</logger>
+
+	<!--<logger name="org.springframework">
+		<level value="DEBUG" />
+	</logger>
+
+ 
+	<logger name="org.hibernate.type" level="ALL" />
+	<logger name="org.hibernate" level="DEBUG" />-->
+
+
+<!-- 	<root level="DEBUG"> -->
+<!-- 		<appender-ref ref="DEBUG" /> -->
+<!-- 	</root>  -->
+	
+	<root level="ERROR">
+		<appender-ref ref="ERROR" />
+	</root>
+	
+	
+	<root level="INFO">
+		<appender-ref ref="INFO" />
+	</root>
+
+</configuration>

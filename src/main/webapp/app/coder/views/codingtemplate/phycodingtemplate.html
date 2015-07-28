@@ -1,0 +1,492 @@
+<div>
+	<ul class="breadcrumb">
+        <li>
+			<a href="#{{$location.path()}}">Home {{$location.path()}} </a> 
+		</li>
+		
+    </ul>
+</div>
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-file"></i>{{iconName}} Physician Chart</h2>
+		</div>
+		<div class="box-content">
+			<!-- Nav tabs -->
+          	<ul class="nav nav-tabs">
+                <li id="audit-tab"><a data-target="#audit" data-toggle="tab" accesskey="a">Audit/Grading</a></li>
+                <li id="coding-tab" class="active"><a data-target="#codingChart" data-toggle="tab" accesskey="c">Coding</a></li>
+                <li id="history-tab"><a data-target="#history" data-toggle="tab" >History</a></li>
+          	</ul>
+          	<div class="tab-content">
+          	   <div class="tab-pane" id="audit">
+	             <form class="form-horizontal" ng-submit="submitGradingSheet()">
+					<div class="inline">
+						<label class="control-label">Client Name</label> 
+						<div class="controls">
+							<input class="input-large" type="text" name="clientName" value="{{gradSheetData.client}}" disabled>
+						</div>
+					</div>			
+					<div class="inline">
+						<label class="control-label">Chart Type</label>
+						<div class="controls">
+						  <input class="input-large" type="text" name="chartType" value="{{gradSheetData.chartType}}" disabled>
+						</div>
+					</div>
+					<div class="inline">
+						<label class="control-label">Chart Specialization</label>
+						<div class="controls">
+						  <input class="input-large" type="text" name="specialization" value="{{gradSheetData.specilization}}" disabled>
+						</div>
+					</div>
+					<div class="inline-bottom">
+						<label class="control-label">Account/MR Number</label>
+						<div class="controls">
+						  <input class="input-large" type="text" name="account" value="{{gradSheetData.accountNumber}} {{gradSheetData.mrNumber}}" disabled>
+						</div>
+					</div>						
+					<div class="clearBoth">
+						<div ng-if="showColCodesError" id="showErrorMessage" class="ui-accuracy-codes-error-message">
+		      				<ul ng-repeat="error in columnErrors">
+		      					<li><p>Number of error should not greater than number of codes, for column  {{error.name}} !</p></li>
+		      				</ul>
+		   				</div>
+						<table id="grading-table" class="table alttable clearBoth">
+						<thead>
+						  <tr>
+							<th>Column Name</th>
+							<th>Weightage</th>
+							<th>No of Errors</th>
+							<th>Accuracy Calculation</th>
+						  </tr>
+						</thead> 	
+						<tbody>
+						  <tr>
+							<td>PDX</td>
+							<td><input class="input-small" id="pdxWeight" name="pdxWeight" type="text" value="{{weightage.pdx}}" disabled /></td>
+							<td><input class="input-small" id="pdxError" name="pdxError" type="text" valid-number ng-model="gradSheet.pdxError"  ng-keyup="calAccuracy(weightage.pdx, gradSheet.pdxError, 'pdx')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="pdxAccuracy" name="pdxAccuracy" type="text" valid-number ng-model="gradSheet.pdxAccuracy" ng-required="showRequired" readonly /></td>
+						  </tr>
+						  <tr>
+							<td>SDX</td>
+							<td><input class="input-small" id="sdxWeight" name="sdxWeight" type="text" value="{{weightage.sdx}}" disabled /></td>
+							<td><input class="input-small" id="sdxError" name="sdxError" type="text" valid-number ng-model="gradSheet.sdxError" ng-keyup="calAccuracy(weightage.sdx, gradSheet.sdxError, 'sdx')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="sdxAccuracy" name="sdxAccuracy" type="text" valid-number ng-model="gradSheet.sdxAccuracy" ng-required="showRequired" readonly/></td>
+						  </tr>
+						  <tr>
+							<td>MCC/CC</td>
+							<td><input class="input-small" id="mccWeight" name="mccWeight" type="text"  value="{{weightage.mcccc}}" disabled /></td>
+							<td><input class="input-small" id="mccError" name="mccError" type="text" valid-number ng-model="gradSheet.mccError" ng-keyup="calAccuracy(weightage.mcccc, gradSheet.mccError, 'mcc')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="mccAccuracy" name="mccAccuracy" type="text" valid-number ng-model="gradSheet.mccAccuracy" ng-required="showRequired" readonly/></td>
+						  </tr>
+						 <tr>
+							<td>Vol-3-PPX</td>
+							<td><input class="input-small" id="vol3ppxWeight" name="vol3ppxWeight" type="text" value="{{weightage.vol3ppx}}" disabled /></td>
+							<td><input class="input-small" id="vol3ppxError" name="vol3ppxError" type="text" valid-number ng-model="gradSheet.vol3ppxError" ng-keyup="calAccuracy(weightage.vol3ppx, gradSheet.vol3ppxError, 'vol3ppx')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="vol3ppxAccuracy" name="vol3ppxAccuracy" type="text" valid-number ng-model="gradSheet.vol3ppxAccuracy" ng-required="showRequired" readonly/></td>
+						 </tr>
+						  <tr>
+							<td>Vol-3-SPX</td>
+							<td><input class="input-small" id="vol3spxWeight" name="vol3spxWeight" type="text" value="{{weightage.vol3spx}}" disabled /></td>
+							<td><input class="input-small" id="vol3spxError" name="vol3spxError" type="text" valid-number ng-model="gradSheet.vol3spxError" ng-keyup="calAccuracy(weightage.vol3spx, gradSheet.vol3spxError, 'vol3spx')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="vol3spxAccuracy" name="vol3spxAccuracy" type="text" valid-number ng-model="gradSheet.vol3spxAccuracy" ng-required="showRequired" readonly/></td>
+						  </tr>
+						  <tr>
+							<td>Dispo</td>
+							<td><input class="input-small" id="dispoWeight" name="dispoWeight" type="text" value="{{weightage.dispo}}" disabled /></td>
+							<td><input class="input-small" id="dispoError" name="dispoError" type="text" valid-number ng-model="gradSheet.dispoError" ng-keyup="calAccuracy(weightage.dispo, gradSheet.dispoError, 'dispo')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="dispoAccuracy" name="dispoAccuracy" type="text" valid-number ng-model="gradSheet.dispoAccuracy" ng-required="showRequired" readonly/></td>
+						  </tr>
+						  <tr>
+							<td>Wrong Physician</td>
+							<td><input class="input-small" id="wrongPhysicianWeight" name="wrongPhysicianWeight" type="text" value="{{weightage.wrongphysician}}" disabled /></td>
+							<td><input class="input-small" id="wrongPhysicianError" name="wrongPhysicianError" type="text" 
+								valid-number ng-model="gradSheet.wrongPhysicianError" ng-keyup="calAccuracy(weightage.wrongphysician, gradSheet.wrongPhysicianError, 'wrongPhysician')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="wrongPhysicianAccuracy" name="wrongPhysicianAccuracy" type="text" valid-number ng-model="gradSheet.wrongPhysicianAccuracy" ng-required="showRequired" readonly/></td>
+						  </tr>
+						  <tr>
+							<td>CPT-PCPT</td>
+							<td><input class="input-small" id="pcptWeight" name="pcptWeight" type="text" value="{{weightage.cptpcpt}}" disabled /></td>
+							<td><input class="input-small" id="pcptError" name="pcptError" type="text" valid-number ng-model="gradSheet.pcptError" ng-keyup="calAccuracy(weightage.cptpcpt, gradSheet.pcptError, 'pcpt')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="pcptAccuracy" name="pcptAccuracy" type="text" valid-number ng-model="gradSheet.pcptAccuracy" ng-required="showRequired" readonly/></td>
+						  </tr>
+						  <tr>
+							<td>CPT-SCPT</td>
+							<td><input class="input-small" id="scptWeight" name="scptWeight" type="text" value="{{weightage.cptscpt}}" disabled /></td>
+							<td><input class="input-small" id="scptError" name="scptError" type="text" valid-number ng-model="gradSheet.scptError" ng-keyup="calAccuracy(weightage.cptscpt, gradSheet.scptError, 'scpt')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="scptAccuracy" name="scptAccuracy" type="text" valid-number ng-model="gradSheet.scptAccuracy" ng-required="showRequired" readonly/></td>
+						  </tr>
+						  <tr>
+							<td>Revenue Code</td>
+							<td><input class="input-small" id="revCodeWeight" name="revCodeWeight" type="text" value="{{weightage.revenuecode}}" disabled /></td>
+							<td><input class="input-small" id="revCodeError" name="revCodeError" type="text" valid-number ng-model="gradSheet.revCodeError" ng-keyup="calAccuracy(weightage.revenuecode, gradSheet.revCodeError, 'revCode')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="revCodeAccuracy" name="revCodeAccuracy" type="text" valid-number ng-model="gradSheet.revCodeAccuracy" ng-required="showRequired" readonly/></td>
+						  </tr>
+						  <tr>
+							<td>Modifier</td>
+							<td><input class="input-small" id="modifierWeight" name="modifierWeight" type="text" value="{{weightage.modifier}}" disabled /></td>
+							<td><input class="input-small" id="modifierError" name="modifierError" type="text" valid-number ng-model="gradSheet.modifierError" ng-keyup="calAccuracy(weightage.modifier, gradSheet.modifierError, 'modifier')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="modifierAccuracy" name="modifierAccuracy" type="text" valid-number ng-model="gradSheet.modifierAccuracy" ng-required="showRequired" readonly/></td>
+						  </tr>
+						  <tr>
+							<td>E/M Level</td>
+							<td><input class="input-small" id="emlevelWeight" name="emlevelWeight" type="text" value="{{weightage.emlevel}}" disabled /></td>
+							<td><input class="input-small" id="emlevelError" name="emlevelError" type="text" valid-number ng-model="gradSheet.emlevelError" ng-keyup="calAccuracy(weightage.emlevel, gradSheet.emlevelError, 'emlevel')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="emlevelAccuracy" name="emlevelAccuracy" type="text" valid-number ng-model="gradSheet.emlevelAccuracy" ng-required="showRequired" readonly/></td>
+						  </tr>
+						  <tr>
+							<td>POA</td>
+							<td><input class="input-small" id="poaWeight" name="poaWeight" type="text" value="{{weightage.poa}}" disabled /></td>
+							<td><input class="input-small" id="poaError" name="poaError" type="text" valid-number ng-model="gradSheet.poaError" ng-keyup="calAccuracy(weightage.poa, gradSheet.poaError, 'poa')" ng-required="showRequired" /></td>
+							<td><input class="input-small" id="poaAccuracy" name="poaAccuracy" type="text" valid-number ng-model="gradSheet.poaAccuracy" ng-required="showRequired" readonly /></td>
+						  </tr>
+						  <tr>
+							<td>ADX</td>
+							<td><input class="input-small" id="adxWeight" name="adxWeight" type="text" value="{{weightage.adx}}" disabled /></td>
+							<td><input class="input-small" id="adxError" name="adxError" type="text" valid-number ng-model="gradSheet.adxError" ng-keyup="calAccuracy(weightage.adx, gradSheet.adxError, 'adx')"  ng-required="showRequired" /></td>
+							<td><input class="input-small" id="adxAccuracy" name="adxAccuracy" type="text" valid-number ng-model="gradSheet.adxAccuracy" ng-required="showRequired" readonly/></td>
+						  </tr>
+						  <tr class="ui-accuracy-message">
+							<td></td>
+							<td></td>
+							<td style="font-size:16px;">Accuracy</td>
+							<td><input class="input-small" id="accuracy" name="accuracy" type="text" valid-number ng-model="totalAccuracy" ng-required="showRequired" readonly/></td>
+						  </tr>
+				  		</tbody>
+					</table>
+				   </div>
+					<div id="accuracyError" class="ui-error-message">
+		      			<p>Accuracy should not be less than zero, Change the grading sheet data to get currect Accuracy!</p>
+		   			</div>
+						
+					<div class="form-actions clearBoth">
+						<button type="submit" class="btn btn-large btn-primary" ng-disabled="disableAuditForm" style="margin-left:365px;">Submit</button>
+						<button type="button" ng-click="CancelAudit()" class="btn btn-large btn-default">Cancel</button>
+					</div>
+				 </form>
+               </div><!-- audit Div -->
+          	   <div class="tab-pane active" id="codingChart">
+          	  	  <form class="form-horizontal" ng-submit="submit()">
+					<fieldset class="fieldsetClass">
+						<legend>Task Details</legend>
+						<div class="fieldset-control-group">
+							<div class="inline">
+								<label class="control-label">Client Name</label> 
+								<div class="controls">
+									<input class="input-large" type="text" name="clientName" value="{{chartDetail.client}}" disabled>
+								</div>
+							</div>			
+							<div class="inline">
+								<label class="control-label">Chart Type</label>
+								<div class="controls">
+								  <input class="input-large" type="text" name="chartType" value="{{chartDetail.chartType}}" disabled>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Chart Specialization</label>
+								<div class="controls">
+								  <input class="input-large" type="text" name="specialization" value="{{chartDetail.specilization}}" disabled>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">Account/MR Number</label>
+								<div class="controls">
+								  <input class="input-large" type="text" name="account" value="{{chartDetail.accountNumber}} {{chartDetail.mrNumber}}" disabled>
+								</div>
+							</div>						
+							<div class="inline">
+								<label class="control-label">TAT</label>
+								<div class="controls">
+								  <input class="input-large uneditable-input" name="tat" type="text" value="{{chartDetail.tat}}" disabled>
+								</div>
+							</div>						
+							<div class="inline">
+								<label class="control-label">LOS</label>
+								<div class="controls">
+								  <input class="input-large uneditable-input" name="los" type="text" value="{{chartDetail.los}}" disabled>
+								</div>
+							</div>
+							<div class="inline">
+								<label class="control-label">EM</label>
+								<div class="controls">
+								  <input class="input-large uneditable-input" name="em" type="text" value="{{chartDetail.em}}" readonly/>
+								</div>
+							</div>						
+							<div class="inline">
+								<font color="red"><b><i><label class="control-label">Task Assigned Time</label></i></b></font>
+								<div class="controls">
+								  <font color="red"><b><input class="input-large uneditable-input" name="taskAssignedTime" type="text" value="{{chartDetail.taskAssignedTime}}" readonly/></b></font>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<fieldset>
+						<div class="control-group inline">
+							<label class="control-label">Patient Name</label>
+							<div class="controls">
+								<input class="input-large focused" id="patientName" name="patientName" type="text" ng-model="ipChart.patientName" required  /> 						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">Additional Information</label>
+							<div class="controls">
+								 <li ng-repeat="account in ipChart.account">
+								 	<input class="input-large focused" id="account" name="account" type="text" ng-model="account.value" required  />	
+								 </li>					 
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">GE Encounter</label>
+							<div class="controls">
+								<input class="input-large focused" id="geEncounter" name="geEncounter" type="text" ng-model="ipChart.geEncounter" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">ADMIT</label>
+							<div class="controls">
+								<input class="input-large focused" id="admit" name="admit" type="text" ng-model="ipChart.admit" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">D/C</label>
+							<div class="controls">
+								<input class="input-large focused" id="dc" name="dc" type="text" ng-model="ipChart.dc" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline" id="dosBoxGroup">
+							<label class="control-label">DOS</label>
+							<div class="controls" id="dos">
+							  <li ng-repeat="dos in ipChart.dos"> 
+								<input class="input-large focused" id="dos" name="dos" type="text" ng-model="dos.value" required  />
+							  </li>
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">B/AREA</label>
+							<div class="controls">
+								<input class="input-large focused" id="barea" name="barea" type="text" ng-model="ipChart.barea" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">Division</label>
+							<div class="controls">
+								<input class="input-large focused" id="division" name="division" type="text" ng-model="ipChart.division" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">LOC</label>
+							<div class="controls">
+								<input class="input-large focused" id="loc" name="loc" type="text" ng-model="ipChart.loc" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">I/O</label>
+							<div class="controls">
+								<input class="input-large focused" id="io" name="io" type="text" ng-model="ipChart.io" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">Insurance</label>
+							<div class="controls">
+								 <li ng-repeat="insurance in ipChart.insurance">
+								 	<input class="input-large focused" id="insurance" name="insurance" type="text" ng-model="insurance.value" required  />	
+								 </li>					 
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">MD</label>
+							<div class="controls">
+								<input class="input-large focused" id="md" name="md" type="text" ng-model="ipChart.md" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">Extender</label>
+							<div class="controls">
+								<input class="input-large focused" id="extender" name="extender" type="text" ng-model="ipChart.extender" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">REF. MD</label>
+							<div class="controls">
+								<input class="input-large focused" id="refmd" name="refmd" type="text" ng-model="ipChart.refmd" required  /> 						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">Document Name</label>
+							<div class="controls">
+								<input class="input-large focused" id="docName" name="docName" type="text" ng-model="ipChart.docName" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">Affinity Code</label>
+							<div class="controls">
+								<input class="input-large focused" id="affinityCode" name="affinityCode" type="text" ng-model="ipChart.affinityCode" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">MD CPT</label>
+							<div class="controls">
+								<input class="input-large focused" id="mdCpt" name="mdCpt" type="text" ng-model="ipChart.mdCpt" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline" id="cptBoxGroup">
+							<label class="control-label">CPT</label>
+							<div class="controls" id="cpt">
+							  <li ng-repeat="cpt in ipChart.cpt"> 
+								<input class="input-large focused" id="cpt" name="cpt" type="text" ng-model="cpt.value" required  />
+							  </li>
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">Up Code</label>
+							<div class="controls">
+								<input class="input-large focused" id="upCode" name="upCode" type="text" ng-model="ipChart.upCode" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">Down Code</label>
+							<div class="controls">
+								<input class="input-large focused" id="downCode" name="downCode" type="text" ng-model="ipChart.downCode" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline" id="modBoxGroup">
+							<label class="control-label">MOD</label>
+							<div class="controls" id="mod">
+							  <li ng-repeat="mod in ipChart.mod"> 
+								<input class="input-large focused" id="mod" name="mod" type="text" ng-model="mod.value" required  />
+							  </li>
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">Units</label>
+							<div class="controls">
+								<input class="input-large focused" id="units" name="units" type="text" ng-model="ipChart.units" required  />						  
+							</div>
+						</div>
+						<div class="control-group inline" id="dx1BoxGroup">
+							<label class="control-label">DX1</label>
+							<div class="controls" id="dx1">
+								<input class="input-large focused" id="dx1" name="dx1" type="text" ng-model="ipChart.dx1" required  />
+							</div>
+						</div>
+						<div class="control-group inline" id="dx2BoxGroup">
+							<label class="control-label">DX2</label>
+							<div class="controls" id="dx2">
+								<input class="input-large focused" id="dx2" name="dx2" type="text" ng-model="ipChart.dx2" required  />
+							</div>
+						</div>
+						<div class="control-group inline" id="dx3BoxGroup">
+							<label class="control-label">DX3</label>
+							<div class="controls" id="dx3">
+								<input class="input-large focused" id="dx3" name="dx3" type="text" ng-model="ipChart.dx3" required  />
+							</div>
+						</div>
+						<div class="control-group inline" id="dx3BoxGroup">
+							<label class="control-label">DX4</label>
+							<div class="controls" id="dx4">
+								<input class="input-large focused" id="dx4" name="dx4" type="text" ng-model="ipChart.dx4" required  />
+							</div>
+						</div>
+						<div class="control-group inline">
+							<label class="control-label">Affinity  Export Date</label>
+							<div class="controls">
+								<input class="input-large focused" id="affinityExportDate" name="affinityExportDate" type="text" ng-model="ipChart.affinityExportDate" required  />						  
+							</div>
+						</div>
+						<div class="clearBoth">
+							<div class="control-group inline">
+								<label class="control-label" for="selectError">Status</label>
+								<div class="controls">
+									<select id="status" name="status" data-rel="chosen" ng-options = "opn for opn in options" 
+									ng-model="ipChart.status" required  >
+									<option value="">--Select--</option>
+									</select>
+								</div>
+							</div>	
+							<div class="control-group inline">
+								<label class="control-label">Comments</label>
+								<div class="controls">
+									<textarea id="comment" name="comment" class="focused form-control" rows="3" style="width: 348px;" 
+									ng-model="ipChart.comments" required  ></textarea>
+								</div>
+							</div>	
+						</div>
+						
+						<div id="submit-button" class="form-actions clearBoth">
+							<button type="submit" class="btn btn-primary" >Submit</button>
+							<button type="button" class="btn btn-success" ng-click="saveCodingForm()">Save</button>
+							<button type="button" ng-click="Cancel()" class="btn btn-default">Cancel</button>
+						</div>
+				  	</fieldset>
+			  	  </form>
+          	   </div><!-- codingChart div -->
+          	   <div class="tab-pane" id="history">
+	              <form class="form-horizontal">
+					<div class="inline">
+						<label class="control-label">Client Name</label> 
+						<div class="controls">
+							<input class="input-large" type="text" name="clientName" value="{{chartDetail.client}}" disabled>
+						</div>
+					</div>			
+					<div class="inline">
+						<label class="control-label">Chart Type</label>
+						<div class="controls">
+						  <input class="input-large" type="text" name="chartType" value="{{chartDetail.chartType}}" disabled>
+						</div>
+					</div>
+					<div class="inline">
+						<label class="control-label">Chart Specialization</label>
+						<div class="controls">
+						  <input class="input-large" type="text" name="specialization" value="{{chartDetail.specilization}}" disabled>
+						</div>
+					</div>
+					<div class="inline">
+						<label class="control-label">Account/MR Number</label>
+						<div class="controls">
+						  <input class="input-large" type="text" name="account" value="{{chartDetail.accountNumber}} {{chartDetail.mrNumber}}" disabled>
+						</div>
+					</div>						
+					<div class="inline">
+						<label class="control-label">TAT</label>
+						<div class="controls">
+						  <input class="input-large uneditable-input" name="tat" type="text" value="{{chartDetail.tat}}" disabled>
+						</div>
+					</div>						
+					<div class="inline">
+						<label class="control-label">LOS</label>
+						<div class="controls">
+						  <input class="input-large uneditable-input" name="los" type="text" value="{{chartDetail.los}}" disabled>
+						</div>
+					</div>
+					<div class="inline">
+						<label class="control-label">EM</label>
+						<div class="controls">
+						  <input class="input-large uneditable-input" name="em" type="text" value="{{chartDetail.em}}" readonly/>
+						</div>
+					</div>						
+					<div class="inline">
+						<font color="red"><b><i><label class="control-label">Task Start Time</label></i></b></font>
+						<div class="controls">
+							<font color="red"><b><input class="input-large uneditable-input" name="taskAssignedTime" type="text" value="{{chartDetail.taskAssignedTime}}" readonly/></b></font>
+						</div>
+					</div>
+					<div class="clearBoth">
+						<table class="table altrowstable">
+						  <thead> 
+						    <th scope="row">Comments:</th>
+						  <thead>
+						  <tbody>
+							  <td>
+							    <ul ng-repeat="comment in comments">
+									<li> {{ $index + 1}}. &nbsp; {{comment.name}}</li>
+								</ul> 
+							  </td>
+						  </tbody>
+						</table>
+					</div>
+				  </form>
+               </div><!-- history Div -->
+          	</div><!-- tab-content div -->
+		</div><!-- box-content -->
+	</div><!--/span-->
+</div><!-- row-fluid sortable -->
